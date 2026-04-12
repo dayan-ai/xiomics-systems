@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xiomics Systems — AI Automation Agency</title>
+  <meta name="description" content="Xiomics Systems builds custom AI Agents and Lead Generation Systems to scale your revenue. Book a free audit today." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            grotesk: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            neon: {
+              blue:  '#00D4FF',
+              cyan:  '#00FFE0',
+              purple:'#7C3AED',
+            },
+            dark: {
+              950: '#020409',
+              900: '#060D1A',
+              800: '#0A1628',
+              700: '#0F2040',
+            }
+          },
+          animation: {
+            'float':       'float 6s ease-in-out infinite',
+            'pulse-slow':  'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+            'border-spin': 'border-spin 4s linear infinite',
+            'fade-up':     'fadeUp 0.8s ease forwards',
+            'glow':        'glow 2s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            float:   { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-18px)' } },
+            fadeUp:  { from: { opacity: '0', transform: 'translateY(30px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+            glow:    { from: { textShadow: '0 0 10px #00D4FF, 0 0 20px #00D4FF' }, to: { textShadow: '0 0 20px #00FFE0, 0 0 40px #00FFE0, 0 0 60px #00D4FF' } },
+            'border-spin': { '100%': { transform: 'rotate(360deg)' } },
+          },
+          backgroundImage: {
+            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { background: #020409; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+    /* Neon text glow */
+    .text-glow { text-shadow: 0 0 12px #00D4FF, 0 0 24px #00D4FF66; }
+    .text-glow-cyan { text-shadow: 0 0 12px #00FFE0, 0 0 24px #00FFE066; }
+
+    /* Noise grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* Grid lines background */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Glassmorphism card */
+    .glass-card {
+      background: rgba(10, 22, 40, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,212,255,0.15);
+      transition: all 0.35s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(0,212,255,0.5);
+      box-shadow: 0 0 30px rgba(0,212,255,0.12), inset 0 0 20px rgba(0,212,255,0.04);
+      transform: translateY(-6px);
+    }
+
+    /* Neon button */
+    .btn-neon {
+      position: relative;
+      background: linear-gradient(135deg, #00D4FF, #00FFE0);
+      color: #020409;
+      font-weight: 700;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .btn-neon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #00FFE0, #00D4FF);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .btn-neon:hover::before { opacity: 1; }
+    .btn-neon:hover { box-shadow: 0 0 30px rgba(0,212,255,0.6), 0 0 60px rgba(0,212,255,0.3); transform: scale(1.03); }
+    .btn-neon span { position: relative; z-index: 1; }
+
+    /* Outline button */
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid rgba(0,212,255,0.5);
+      color: #00D4FF;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover { border-color: #00D4FF; background: rgba(0,212,255,0.08); box-shadow: 0 0 20px rgba(0,212,255,0.25); }
+
+    /* Navbar scroll effect */
+    #navbar { transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease; }
+    #navbar.scrolled {
+      background: rgba(2,4,9,0.92);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(0,212,255,0.15);
+    }
+
+    /* Animated orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    /* Service icon wrapper */
+    .icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover .icon-wrap {
+      background: rgba(0,212,255,0.15);
+      border-color: rgba(0,212,255,0.5);
+      box-shadow: 0 0 16px rgba(0,212,255,0.3);
+    }
+
+    /* Form inputs */
+    .form-input {
+      background: rgba(10,22,40,0.8);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 8px;
+      color: #e2e8f0;
+      transition: all 0.3s ease;
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .form-input::placeholder { color: rgba(148,163,184,0.5); }
+    .form-input:focus { border-color: #00D4FF; box-shadow: 0 0 16px rgba(0,212,255,0.2); background: rgba(10,22,40,1); }
+
+    /* Mobile menu */
+    #mobile-menu {
+      background: rgba(2,4,9,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,212,255,0.1);
+    }
+
+    /* Stat counter */
+    .stat-card {
+      background: rgba(0,212,255,0.04);
+      border: 1px solid rgba(0,212,255,0.12);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover { border-color: rgba(0,212,255,0.35); background: rgba(0,212,255,0.08); }
+
+    /* Section fade in on scroll */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(90deg, #00D4FF, #00FFE0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-text-purple {
+      background: linear-gradient(90deg, #7C3AED, #00D4FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #020409; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0,212,255,0.6); }
+
+    /* Ticker */
+    .ticker-wrap { overflow: hidden; }
+    .ticker-track {
+      display: flex;
+      gap: 48px;
+      animation: ticker 22s linear infinite;
+      white-space: nowrap;
+    }
+    @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 9999px;
+      padding: 4px 14px;
+      font-size: 0.78rem;
+      color: #00D4FF;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .badge-dot { width:6px; height:6px; border-radius:50%; background:#00D4FF; animation: pulse 1.5s infinite; }
+  </style>
+</head>
+<body class="text-slate-200">
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                        NAVBAR                           ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+  <nav class="max-w-7xl mx-auto flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="#" id="logo" class="flex items-center gap-3 group">
+      <div class="w-9 h-9 rounded-lg flex items-center justify-center relative" style="background: linear-gradient(135deg,#00D4FF22,#00FFE011); border:1px solid rgba(0,212,255,0.35);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#00D4FF" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M2 17l10 5 10-5" stroke="#00FFE0" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M2 12l10 5 10-5" stroke="#00D4FF" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="font-grotesk font-700 text-lg text-white tracking-tight group-hover:text-glow transition-all" style="font-weight:700;">
+        Xiomics <span class="gradient-text">Systems</span>
+      </span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <ul id="nav-links" class="hidden md:flex items-center gap-8">
+      <li><a href="#services" class="text-sm font-medium text-slate-400 hover:text-[#00D4FF] transition-colors duration-200">Services</a></li>
+      <li><a href="#about" class="text-sm font-medium text-slate-400 hover:text-[#00D4FF] transition-colors duration-200">About</a></li>
+      <li><a href="#contact" class="text-sm font-medium text-slate-400 hover:text-[#00D4FF] transition-colors duration-200">Contact</a></li>
+    </ul>
+
+    <!-- CTA + Hamburger -->
+    <div class="flex items-center gap-4">
+      <a href="#contact" id="nav-cta" class="hidden md:inline-flex btn-neon px-5 py-2 text-sm">
+        <span>Book a Free Audit</span>
+      </a>
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-1" aria-label="Toggle menu">
+        <span class="ham-line block w-6 h-0.5 bg-slate-300 transition-all duration-300"></span>
+        <span class="ham-line block w-6 h-0.5 bg-slate-300 transition-all duration-300"></span>
+        <span class="ham-line block w-6 h-0.5 bg-slate-300 transition-all duration-300"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden mt-2 rounded-xl p-4">
+    <ul class="flex flex-col gap-4">
+      <li><a href="#services" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 border-b border-slate-800 transition-colors">Services</a></li>
+      <li><a href="#about" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 border-b border-slate-800 transition-colors">About</a></li>
+      <li><a href="#contact" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 transition-colors">Contact</a></li>
+      <li><a href="#contact" class="mobile-link btn-neon inline-flex justify-center px-5 py-2.5 text-sm mt-1 w-full"><span>Book a Free Audit</span></a></li>
+    </ul>
+  </div>
+</header>
+
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                      HERO SECTION                       ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<section id="hero" class="relative min-h-screen flex items-center grid-bg overflow-hidden">
+
+  <!-- Background orbs -->
+  <div class="orb w-[600px] h-[600px] top-[-150px] left-[-150px] opacity-20" style="background:radial-gradient(circle, #00D4FF, transparent 70%);"></div>
+  <div class="orb w-[500px] h-[500px] bottom-[-100px] right-[-100px] opacity-15" style="background:radial-gradient(circle, #7C3AED, transparent 70%);"></div>
+  <div class="orb w-[300px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10" style="background:radial-gradient(circle, #00FFE0, transparent 70%); animation: pulse-slow 6s infinite;"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center w-full">
+
+    <!-- Badge -->
+    <div class="flex justify-center mb-8 animate-fade-up" style="animation-delay:0.1s;">
+      <span class="badge">
+        <span class="badge-dot"></span>
+        AI-Powered Business Automation
+      </span>
+    </div>
+
+    <!-- Headline -->
+    <h1 id="hero-headline" class="font-grotesk font-bold text-5xl md:text-7xl lg:text-8xl leading-tight mb-6 animate-fade-up" style="animation-delay:0.2s;">
+      Automate Your<br />
+      <span class="gradient-text animate-glow">Business with AI</span>
+    </h1>
+
+    <!-- Sub-headline -->
+    <p id="hero-sub" class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up" style="animation-delay:0.35s;">
+      We build custom <span class="text-slate-200 font-medium">AI Agents</span> and <span class="text-slate-200 font-medium">Lead Generation Systems</span> to scale your revenue.
+    </p>
+
+    <!-- CTAs -->
+    <div id="hero-ctas" class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style="animation-delay:0.5s;">
+      <a href="#contact" id="hero-cta-primary" class="btn-neon px-8 py-3.5 text-base font-bold tracking-wide">
+        <span>Book a Free Audit →</span>
+      </a>
+      <a href="#services" id="hero-cta-secondary" class="btn-outline px-8 py-3.5 text-base font-semibold">
+        Explore Services
+      </a>
+    </div>
+
+    <!-- Floating stats -->
+    <div id="hero-stats" class="grid grid-cols-3 gap-4 max-w-xl mx-auto mt-20 animate-fade-up" style="animation-delay:0.65s;">
+      <div class="stat-card p-4 text-center">
+        <div class="text-2xl md:text-3xl font-bold gradient-text">10x</div>
+        <div class="text-xs text-slate-500 mt-1">Faster Workflows</div>
+      </div>
+      <div class="stat-card p-4 text-center">
+        <div class="text-2xl md:text-3xl font-bold gradient-text">300%</div>
+        <div class="text-xs text-slate-500 mt-1">Lead Growth</div>
+      </div>
+      <div class="stat-card p-4 text-center">
+        <div class="text-2xl md:text-3xl font-bold gradient-text">24/7</div>
+        <div class="text-xs text-slate-500 mt-1">AI Uptime</div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+      <span class="text-xs text-slate-500 tracking-widest uppercase">Scroll</span>
+      <div class="w-px h-10 bg-gradient-to-b from-slate-500 to-transparent"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                  TICKER / TRUST BAR                     ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<div class="py-5 border-y border-slate-800/60 overflow-hidden bg-dark-900/40">
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <!-- Items repeated twice for seamless loop -->
+      <span class="text-slate-600 font-medium text-sm">AI Voice Agents</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">Smart Lead Generation</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">Workflow Automation</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">CRM Integration</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">Conversational AI</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">Revenue Acceleration</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <!-- Duplicate -->
+      <span class="text-slate-600 font-medium text-sm">AI Voice Agents</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">Smart Lead Generation</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">Workflow Automation</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">CRM Integration</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">Conversational AI</span>
+      <span class="text-[#00D4FF]">✦</span>
+      <span class="text-slate-600 font-medium text-sm">Revenue Acceleration</span>
+      <span class="text-[#00D4FF]">✦</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                   SERVICES SECTION                      ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<section id="services" class="relative py-28 px-6 overflow-hidden">
+  <!-- Background glow -->
+  <div class="orb w-[700px] h-[700px] top-0 left-1/2 -translate-x-1/2 opacity-[0.07]" style="background:radial-gradient(circle, #00D4FF, transparent 65%);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+
+    <!-- Section header -->
+    <div class="text-center mb-16 reveal">
+      <span class="badge mb-4 inline-flex">Our Services</span>
+      <h2 class="font-grotesk font-bold text-4xl md:text-5xl text-white mb-4">
+        Solutions Built to <span class="gradient-text">Scale</span>
+      </h2>
+      <p class="text-slate-400 max-w-xl mx-auto text-lg">
+        Every tool we deploy is engineered to cut costs, capture leads, and accelerate growth — automatically.
+      </p>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Card 1: AI Voice Agents -->
+      <article id="service-voice" class="glass-card rounded-2xl p-8 reveal group">
+        <div class="icon-wrap mb-6">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
+        <h3 class="font-grotesk font-bold text-xl text-white mb-3 group-hover:text-[#00D4FF] transition-colors">
+          AI Voice Agents
+        </h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-5">
+          Deploy intelligent voice bots that qualify leads, book appointments, and handle customer calls — 24/7, without lifting a finger.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.08);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">Real-time NLP</span>
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.08);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">CRM Sync</span>
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.08);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">24/7 Active</span>
+        </div>
+        <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-[#00D4FF] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span>Learn more</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </article>
+
+      <!-- Card 2: Smart Lead Generation (featured) -->
+      <article id="service-leads" class="rounded-2xl p-8 reveal group relative overflow-hidden" style="background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(0,255,224,0.04)); border:1px solid rgba(0,212,255,0.3);">
+        <!-- Featured glow -->
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background:radial-gradient(circle at 50% 0%, rgba(0,212,255,0.12), transparent 70%);"></div>
+        <!-- Badge -->
+        <div class="absolute top-5 right-5">
+          <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:linear-gradient(135deg,#00D4FF,#00FFE0);color:#020409;">Most Popular</span>
+        </div>
+        <div class="icon-wrap mb-6 relative z-10" style="background:rgba(0,212,255,0.15);border-color:rgba(0,212,255,0.4);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3 class="font-grotesk font-bold text-xl text-white mb-3 relative z-10 group-hover:text-[#00D4FF] transition-colors">
+          Smart Lead Generation
+        </h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-5 relative z-10">
+          AI-driven outreach systems that identify, engage, and convert high-value prospects into booked meetings at scale.
+        </p>
+        <div class="flex flex-wrap gap-2 relative z-10">
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.12);color:#00D4FF;border:1px solid rgba(0,212,255,0.3);">Multi-channel</span>
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.12);color:#00D4FF;border:1px solid rgba(0,212,255,0.3);">Auto-qualify</span>
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.12);color:#00D4FF;border:1px solid rgba(0,212,255,0.3);">Analytics</span>
+        </div>
+        <div class="mt-6 pt-6 border-t border-slate-700/50 flex items-center gap-2 text-[#00D4FF] text-sm font-medium relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span>Learn more</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </article>
+
+      <!-- Card 3: Workflow Automation -->
+      <article id="service-workflow" class="glass-card rounded-2xl p-8 reveal group">
+        <div class="icon-wrap mb-6">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00FFE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </div>
+        <h3 class="font-grotesk font-bold text-xl text-white mb-3 group-hover:text-[#00FFE0] transition-colors">
+          Workflow Automation
+        </h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-5">
+          Connect your entire tech stack and eliminate repetitive tasks with custom AI workflows that run in the background, always on.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,255,224,0.07);color:#00FFE0;border:1px solid rgba(0,255,224,0.2);">API Connect</span>
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,255,224,0.07);color:#00FFE0;border:1px solid rgba(0,255,224,0.2);">Zero Code</span>
+          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,255,224,0.07);color:#00FFE0;border:1px solid rgba(0,255,224,0.2);">Instant Alerts</span>
+        </div>
+        <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-[#00FFE0] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span>Learn more</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                    ABOUT SECTION                        ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<section id="about" class="relative py-28 px-6 overflow-hidden">
+  <!-- Orbs -->
+  <div class="orb w-[500px] h-[500px] top-1/2 right-[-150px] -translate-y-1/2 opacity-10" style="background:radial-gradient(circle, #7C3AED, transparent 70%);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: Text content -->
+      <div class="reveal">
+        <span class="badge mb-5 inline-flex">About Us</span>
+        <h2 class="font-grotesk font-bold text-4xl md:text-5xl text-white leading-tight mb-6">
+          We're the AI team<br />behind <span class="gradient-text-purple">faster-growing</span><br />businesses.
+        </h2>
+        <p class="text-slate-400 leading-relaxed mb-6">
+          Xiomics Systems is a specialist AI Automation Agency focused exclusively on helping B2B companies eliminate inefficiency and unlock growth. We don't sell software — we engineer intelligence that integrates seamlessly into your existing processes.
+        </p>
+        <p class="text-slate-400 leading-relaxed mb-8">
+          From intelligent voice agents that never sleep, to multi-channel lead engines that qualify your pipeline automatically — every system we build is custom, measurable, and built to scale.
+        </p>
+        <a href="#contact" class="btn-neon inline-flex px-7 py-3 text-sm font-bold">
+          <span>Let's Build Together →</span>
+        </a>
+      </div>
+
+      <!-- Right: Feature list -->
+      <div class="reveal">
+        <div class="space-y-5">
+          <!-- Feature row -->
+          <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">100% Custom-Built Systems</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">No templates. Every automation is architected to your exact business model and goals.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,255,224,0.07);border:1px solid rgba(0,255,224,0.2);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FFE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1 group-hover:text-[#00FFE0] transition-colors">Rapid Deployment</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">From kickoff to live automation in as little as 2 weeks — speed is built into our process.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1 group-hover:text-[#a78bfa] transition-colors">Proven ROI-Focused Approach</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">We measure what matters — leads, revenue, and time saved. Every project comes with clear KPIs.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">Ongoing Support & Iteration</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">Your AI systems improve over time. We monitor, optimize, and evolve your automations continuously.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                   CTA BANNER                            ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<section class="py-20 px-6 reveal">
+  <div class="max-w-4xl mx-auto text-center rounded-2xl p-12 relative overflow-hidden" style="background:linear-gradient(135deg, rgba(0,212,255,0.08), rgba(124,58,237,0.08)); border:1px solid rgba(0,212,255,0.2);">
+    <div class="absolute inset-0 opacity-30" style="background:radial-gradient(ellipse at center, rgba(0,212,255,0.15), transparent 70%);"></div>
+    <div class="relative z-10">
+      <h2 class="font-grotesk font-bold text-3xl md:text-4xl text-white mb-4">
+        Ready to run on autopilot?
+      </h2>
+      <p class="text-slate-400 mb-8 text-lg max-w-xl mx-auto">
+        Book a free 30-minute strategy audit and discover exactly which automations will generate the highest ROI for your business.
+      </p>
+      <a href="#contact" class="btn-neon inline-flex px-10 py-4 text-base font-bold">
+        <span>Book Your Free Audit Now →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                  CONTACT SECTION                        ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<section id="contact" class="relative py-28 px-6 overflow-hidden">
+  <div class="orb w-[600px] h-[600px] bottom-0 left-1/2 -translate-x-1/2 opacity-[0.08]" style="background:radial-gradient(circle, #00D4FF, transparent 65%);"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto">
+
+    <!-- Section header -->
+    <div class="text-center mb-14 reveal">
+      <span class="badge mb-4 inline-flex">Get In Touch</span>
+      <h2 class="font-grotesk font-bold text-4xl md:text-5xl text-white mb-4">
+        Let's Build Your <span class="gradient-text">AI Stack</span>
+      </h2>
+      <p class="text-slate-400 max-w-xl mx-auto text-lg">
+        Fill in the form and we'll schedule your free strategy audit — no strings attached.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
+
+      <!-- Left: Contact info -->
+      <div class="lg:col-span-2 reveal">
+        <div class="glass-card rounded-2xl p-8 h-full flex flex-col justify-between">
+          <div>
+            <h3 class="font-grotesk font-bold text-xl text-white mb-6">Contact Information</h3>
+
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 mb-0.5">Email</div>
+                  <a href="mailto:contact@xiomics.systems" id="contact-email" class="text-slate-200 hover:text-[#00D4FF] transition-colors text-sm font-medium">
+                    contact@xiomics.systems
+                  </a>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 mb-0.5">Response Time</div>
+                  <span class="text-slate-200 text-sm font-medium">Within 24 hours</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 mb-0.5">Availability</div>
+                  <span class="text-slate-200 text-sm font-medium">Global — Remote First</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="border-t border-slate-800 my-8"></div>
+
+          <!-- Audit checklist -->
+          <div>
+            <p class="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-4">What's in the Free Audit?</p>
+            <ul class="space-y-3">
+              <li class="flex items-center gap-3 text-slate-400 text-sm">
+                <span class="text-[#00D4FF]">✓</span> Automation opportunity analysis
+              </li>
+              <li class="flex items-center gap-3 text-slate-400 text-sm">
+                <span class="text-[#00D4FF]">✓</span> Custom AI roadmap for your business
+              </li>
+              <li class="flex items-center gap-3 text-slate-400 text-sm">
+                <span class="text-[#00D4FF]">✓</span> ROI estimation & quick-win identification
+              </li>
+              <li class="flex items-center gap-3 text-slate-400 text-sm">
+                <span class="text-[#00D4FF]">✓</span> Zero obligation, 100% value
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="lg:col-span-3 reveal">
+        <form id="contact-form" class="glass-card rounded-2xl p-8 space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block text-sm font-medium text-slate-400 mb-2">Full Name</label>
+              <input id="name" name="name" type="text" required placeholder="John Smith" class="form-input" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-slate-400 mb-2">Email Address</label>
+              <input id="email" name="email" type="email" required placeholder="john@company.com" class="form-input" />
+            </div>
+          </div>
+
+          <div>
+            <label for="business" class="block text-sm font-medium text-slate-400 mb-2">Business Name</label>
+            <input id="business" name="business" type="text" required placeholder="Acme Corp" class="form-input" />
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-slate-400 mb-2">Tell us about your business</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Describe your biggest operational bottleneck or what you'd like to automate..." class="form-input resize-none"></textarea>
+          </div>
+
+          <button id="submit-btn" type="submit" class="btn-neon w-full py-3.5 text-base font-bold tracking-wide mt-2">
+            <span id="submit-label">Send Message & Book Audit →</span>
+          </button>
+
+          <!-- Success message -->
+          <div id="form-success" class="hidden text-center py-4">
+            <div class="text-[#00FFE0] text-2xl mb-2">✓</div>
+            <p class="text-slate-200 font-semibold">Message sent!</p>
+            <p class="text-slate-400 text-sm mt-1">We'll reach out within 24 hours.</p>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                      FOOTER                             ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<footer class="border-t border-slate-800/60 py-10 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#00D4FF22,#00FFE011);border:1px solid rgba(0,212,255,0.3);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#00D4FF" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M2 17l10 5 10-5" stroke="#00FFE0" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M2 12l10 5 10-5" stroke="#00D4FF" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="font-grotesk font-bold text-sm text-white">Xiomics <span class="gradient-text">Systems</span></span>
+      </div>
+
+      <!-- Copyright -->
+      <p class="text-slate-600 text-sm text-center">
+        © 2026 Xiomics Systems. All rights reserved.
+      </p>
+
+      <!-- Footer links -->
+      <div class="flex items-center gap-6">
+        <a href="#services" class="text-slate-600 hover:text-[#00D4FF] text-sm transition-colors">Services</a>
+        <a href="#about" class="text-slate-600 hover:text-[#00D4FF] text-sm transition-colors">About</a>
+        <a href="#contact" class="text-slate-600 hover:text-[#00D4FF] text-sm transition-colors">Contact</a>
+        <a href="mailto:contact@xiomics.systems" class="text-slate-600 hover:text-[#00D4FF] text-sm transition-colors">contact@xiomics.systems</a>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+
+<!-- ╔══════════════════════════════════════════════════════════╗ -->
+<!-- ║                    JAVASCRIPT                           ║ -->
+<!-- ╚══════════════════════════════════════════════════════════╝ -->
+<script>
+  /* ── Navbar scroll effect ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  /* ── Hamburger menu ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const lines = hamburger.querySelectorAll('.ham-line');
+  let menuOpen = false;
+
+  hamburger.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('hidden', !menuOpen);
+    lines[0].style.transform = menuOpen ? 'translateY(8px) rotate(45deg)' : '';
+    lines[1].style.opacity  = menuOpen ? '0' : '1';
+    lines[2].style.transform = menuOpen ? 'translateY(-8px) rotate(-45deg)' : '';
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu.classList.add('hidden');
+      lines.forEach(l => { l.style.transform = ''; l.style.opacity = '1'; });
+    });
+  });
+
+  /* ── Scroll reveal ── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Stagger children if multiple reveals in same parent
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 3) * 0.1}s`;
+    revealObserver.observe(el);
+  });
+
+  /* ── Contact form ── */
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const submitLabel = document.getElementById('submit-label');
+  const successMsg = document.getElementById('form-success');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    // Loading state
+    submitBtn.disabled = true;
+    submitLabel.textContent = 'Sending…';
+
+    // Simulate network (replace with real endpoint like Formspree / EmailJS)
+    await new Promise(r => setTimeout(r, 1500));
+
+    // Success state
+    form.querySelectorAll('input, textarea').forEach(el => el.value = '');
+    submitBtn.style.display = 'none';
+    successMsg.classList.remove('hidden');
+
+    setTimeout(() => {
+      submitBtn.style.display = '';
+      submitBtn.disabled = false;
+      submitLabel.textContent = 'Send Message & Book Audit →';
+      successMsg.classList.add('hidden');
+    }, 5000);
+  });
+
+  /* ── Smooth active nav highlight ── */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('#nav-links a');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          const isActive = link.getAttribute('href') === `#${id}`;
+          link.style.color = isActive ? '#00D4FF' : '';
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => sectionObserver.observe(s));
+</script>
+
+</body>
+</html>
