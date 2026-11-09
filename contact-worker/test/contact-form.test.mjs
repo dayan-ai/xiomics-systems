@@ -1,4 +1,5 @@
-// Unit tests for the browser contact-form module (assets/js/contact-form.js).
+// Unit tests for the DEFERRED browser contact-form module (contact-worker/client/contact-form.js).
+// It is not used by the live site (Topmate booking replaced the form) but is kept, tested, for reuse.
 // The module is a dependency-free UMD script; Node loads it via require().
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
@@ -6,7 +7,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const form = require('../assets/js/contact-form.js');
+const form = require('../client/contact-form.js');
 
 describe('validateInquiry matches the shared server vectors', () => {
   const vectors = JSON.parse(readFileSync(new URL('./fixtures/inquiry-vectors.json', import.meta.url), 'utf8'));

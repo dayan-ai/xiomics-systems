@@ -1,6 +1,9 @@
 /*!
  * Xiomics Systems contact form: progressive enhancement, no dependencies.
  *
+ * STATUS: DEFERRED. Not loaded by the website. Bookings go through Topmate (see ../../README.md).
+ * Kept with its tests for possible future reuse together with the contact Worker in this folder.
+ *
  * Configuration lives on the <form>:
  *   action="mailto:contact@xiomics.systems"   always; without JavaScript the browser opens an email.
  *   data-endpoint absent/empty                 → email mode: opens the visitor's email app with the

@@ -1,4 +1,5 @@
-// Static acceptance checks for index.html (Phase 1: honest, functional, conversion-ready).
+// Static acceptance checks for index.html (Phase 1.5: positioning, five service pillars,
+// Topmate booking as the primary conversion, no contact form, no backend dependency).
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
@@ -7,30 +8,27 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const html = readFileSync(join(ROOT, 'index.html'), 'utf8').replace(/\r\n/g, '\n');
-const visible = html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '').replace(/<!--[\s\S]*?-->/g, '');
+const decode = (s) => s.replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/&rsquo;|&#39;/g, "'");
+const stripTags = (s) => decode(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
+const visible = stripTags(html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '').replace(/<!--[\s\S]*?-->/g, ''));
 
-function tag(re) {
-  const m = html.match(re);
-  assert.ok(m, `missing: ${re}`);
-  return m[0];
-}
+const BOOKING_URL = 'https://topmate.io/muhammad_dayan/2397800';
+const PRIMARY_CTA = 'Book a Free Discovery Call';
+
 const attr = (tagText, name) => {
   const m = tagText.match(new RegExp(`\\s${name}="([^"]*)"`));
   return m ? m[1] : null;
 };
+const anchors = [...html.matchAll(/<a\s[^>]*>[\s\S]*?<\/a>/g)].map((m) => m[0]);
+const openTag = (a) => a.match(/<a\s[^>]*>/)[0];
+const bookingLinks = anchors.filter((a) => /\sdata-booking-link(\s|>|=)/.test(openTag(a)));
 
-describe('navigation integrity', () => {
+describe('navigation integrity and landmarks', () => {
   test('every in-page link points at an element that exists', () => {
     const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
     const targets = [...html.matchAll(/href="#([^"]*)"/g)].map((m) => m[1]).filter(Boolean);
     assert.ok(targets.length > 5);
     for (const t of targets) assert.ok(ids.has(t), `broken anchor #${t}`);
-  });
-
-  test('every mailto link targets the confirmed business mailbox', () => {
-    const mailtos = [...html.matchAll(/(?:href|action)="mailto:([^"?]+)/g)].map((m) => m[1]);
-    assert.ok(mailtos.length >= 2);
-    for (const m of mailtos) assert.equal(m, 'contact@xiomics.systems');
   });
 
   test('no empty or javascript: links', () => {
@@ -39,98 +37,162 @@ describe('navigation integrity', () => {
   });
 
   test('mobile menu toggle exposes its state', () => {
-    const btn = tag(/<button id="hamburger"[^>]*>/);
+    const btn = html.match(/<button id="hamburger"[^>]*>/)[0];
     assert.equal(attr(btn, 'aria-controls'), 'mobile-menu');
     assert.equal(attr(btn, 'aria-expanded'), 'false');
   });
-});
 
-describe('no booking promises without a booking system', () => {
-  test('no "Book …" CTA wording remains', () => {
-    assert.doesNotMatch(visible, /\bBook (a |your )?free/i);
-    assert.doesNotMatch(visible, /Book Audit|Book Your Free|Book a Free/i);
+  test('page has exactly one <main> landmark and one h1', () => {
+    assert.equal((html.match(/<main[\s>]/g) || []).length, 1);
+    assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
+  });
+
+  test('headings never skip a level', () => {
+    const levels = [...html.matchAll(/<h([1-6])[\s>]/g)].map((m) => Number(m[1]));
+    for (let i = 1; i < levels.length; i += 1) assert.ok(levels[i] - levels[i - 1] <= 1, `h${levels[i - 1]} → h${levels[i]}`);
   });
 });
 
-describe('unsupported marketing claims are gone', () => {
-  for (const phrase of ['10x', '300%', 'Lead Growth', 'AI Uptime', 'Most Popular', 'Proven ROI', 'faster-growing',
-    'focused exclusively', 'as little as 2 weeks', '100% value', 'exactly which']) {
-    test(`"${phrase}" is not on the page`, () => assert.ok(!visible.includes(phrase), phrase));
-  }
-});
-
-describe('functional defects fixed', () => {
-  test('no hover-only "Learn more" pseudo-links remain', () => {
-    assert.doesNotMatch(visible, /Learn more/);
+describe('positioning', () => {
+  test('title states the AI automation & digital transformation positioning', () => {
+    const title = decode(html.match(/<title>([^<]*)<\/title>/)[1]);
+    assert.match(title, /AI Automation & Digital Transformation/);
   });
 
-  test('each service card has a real link to the inquiry form', () => {
-    const links = [...html.matchAll(/<a [^>]*data-service="([^"]+)"[^>]*>/g)];
-    assert.equal(links.length, 3);
-    for (const l of links) assert.equal(attr(l[0], 'href'), '#contact');
-  });
-
-  test('the LinkedIn logo is no longer used as the ROI icon', () => {
-    assert.ok(!html.includes('M16 8a6 6 0 016 6v7'));
-  });
-
-  test('footer link row can wrap on narrow screens', () => {
-    assert.match(html, /<div class="[^"]*flex-wrap[^"]*"[^>]*>\s*<a href="#services"/);
+  test('hero carries the brand message', () => {
+    assert.ok(visible.includes('We build intelligent AI systems and automated workflows that help businesses reduce repetitive work, streamline operations, improve customer experiences, and grow digitally.'));
   });
 });
 
-describe('contact form is honest and accessible', () => {
-  const formTag = tag(/<form id="contact-form"[^>]*>/);
+describe('five service pillars', () => {
+  const pillars = {
+    'AI Voice Agents': ['Inbound', 'Outbound', 'AI receptionists', 'Lead qualification', 'Appointment scheduling', 'follow-ups', 'Call routing', 'After-hours'],
+    'AI & Business Workflow Automation': ['CRM', 'WhatsApp', 'Customer onboarding', 'Document and data processing', 'API integrations', 'Cross-platform', 'administrative'],
+    'Custom AI Agents & Assistants': ['research agents', 'knowledge assistants', 'Internal AI assistants', 'Document Q&A', 'document extraction', 'Multi-step AI workflows'],
+    'Small Business Digital Transformation': ['websites', 'landing pages', 'catalogs', 'Booking and appointment', 'Lead capture forms', 'WhatsApp Business', 'Google Business Profile', 'CRM', 'enquiry'],
+    'Data Analytics & Business Intelligence': ['Data cleaning', 'dashboards', 'KPI reporting', 'Automated business reports', 'insights', 'Business intelligence'],
+  };
+  const headings = [...html.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => stripTags(m[1]).trim());
 
-  test('without JavaScript the form opens an email to the business mailbox — never nowhere', () => {
-    assert.equal(attr(formTag, 'action'), 'mailto:contact@xiomics.systems');
-    assert.equal(attr(formTag, 'method'), 'post');
-  });
-
-  test('the optional backend endpoint, if set, is https', () => {
-    const endpoint = attr(formTag, 'data-endpoint');
-    assert.ok(endpoint === null || endpoint === '' || /^https:\/\/\S+$/.test(endpoint), `data-endpoint=${endpoint}`);
-  });
-
-  test('the fake-success simulation is gone', () => {
-    assert.ok(!html.includes('Simulate network'));
-    assert.ok(!/setTimeout\(r,\s*1500\)/.test(html));
-  });
-
-  for (const [id, max] of [['name', '100'], ['email', '254'], ['business', '120'], ['message', '5000']]) {
-    test(`#${id} is labelled, named, length-limited and wired to an error message`, () => {
-      const field = tag(new RegExp(`<(input|textarea) id="${id}"[^>]*>`));
-      assert.equal(attr(field, 'name'), id);
-      assert.equal(attr(field, 'maxlength'), max);
-      assert.ok(html.includes(`<label for="${id}"`), `label for ${id}`);
-      const describedBy = attr(field, 'aria-describedby');
-      assert.ok(describedBy, `aria-describedby on ${id}`);
-      for (const ref of describedBy.split(/\s+/)) assert.ok(html.includes(`id="${ref}"`), `missing #${ref}`);
+  for (const [name, items] of Object.entries(pillars)) {
+    test(`"${name}" is a service with its key offerings`, () => {
+      assert.ok(headings.includes(name), `missing h3 "${name}" in ${JSON.stringify(headings)}`);
+      const start = html.indexOf(`data-pillar="${name.replace(/&/g, '&amp;')}"`);
+      assert.ok(start > -1, `missing data-pillar for ${name}`);
+      const card = stripTags(html.slice(start, html.indexOf('</article>', start)));
+      for (const item of items) assert.ok(card.toLowerCase().includes(item.toLowerCase()), `${name}: missing "${item}"`);
     });
   }
 
-  test('honeypot field is hidden from people and assistive technology, and not an autofill target', () => {
-    const hp = tag(/<input id="xs-hp"[^>]*>/);
-    assert.equal(attr(hp, 'name'), 'xs_hp');
-    assert.equal(attr(hp, 'tabindex'), '-1');
-    assert.equal(attr(hp, 'autocomplete'), 'off');
-    assert.match(html, /<div class="hp-field" aria-hidden="true">[\s\S]*?<input id="xs-hp"/);
-    assert.ok(!/name="website"/.test(html), 'a "website" field name invites browser autofill');
+  test('supporting capabilities are listed', () => {
+    for (const s of ['Automation audits', 'System integrations', 'Workflow optimization', 'Ongoing maintenance']) {
+      assert.ok(visible.includes(s), s);
+    }
   });
 
-  test('form status is announced through a live region', () => {
-    const status = tag(/<div id="form-status"[^>]*>/);
-    assert.equal(attr(status, 'aria-live'), 'polite');
+  test('positioned broadly, not as a single-tool agency', () => {
+    assert.doesNotMatch(visible, /\bn8n\b/i);
+    assert.doesNotMatch(visible, /chatbot agency|voice[- ]agent agency/i);
+  });
+});
+
+describe('Topmate booking is the primary conversion', () => {
+  test('booking links exist across the page (nav, mobile menu, hero, services, banner, contact, footer)', () => {
+    assert.ok(bookingLinks.length >= 10, `only ${bookingLinks.length} booking links`);
   });
 
-  test('the contact-form script is included and exists', () => {
-    assert.match(html, /<script src="assets\/js\/contact-form\.js" defer><\/script>/);
-    assert.ok(existsSync(join(ROOT, 'assets', 'js', 'contact-form.js')));
+  test('every booking link opens the Topmate discovery-call service in a new tab safely', () => {
+    for (const a of bookingLinks) {
+      const tag = openTag(a);
+      assert.equal(attr(tag, 'href'), BOOKING_URL, tag);
+      assert.equal(attr(tag, 'target'), '_blank', tag);
+      const rel = (attr(tag, 'rel') || '').split(/\s+/);
+      assert.ok(rel.includes('noopener') && rel.includes('noreferrer'), tag);
+    }
   });
 
-  test('a privacy note sits with the form', () => {
-    assert.match(visible, /only to (reply|respond) to your inquiry/i);
+  test('every link that opens a new tab has rel="noopener noreferrer"', () => {
+    for (const a of anchors.filter((x) => /target="_blank"/.test(openTag(x)))) {
+      const rel = (attr(openTag(a), 'rel') || '').split(/\s+/);
+      assert.ok(rel.includes('noopener') && rel.includes('noreferrer'), openTag(a));
+    }
   });
+
+  test('new-tab booking links say so to screen-reader users', () => {
+    for (const a of bookingLinks) assert.match(stripTags(a), /opens in a new tab/i, openTag(a));
+  });
+
+  test(`the primary CTA reads "${PRIMARY_CTA}" in the nav, hero and contact section`, () => {
+    for (const id of ['nav-cta', 'hero-cta-primary', 'contact-cta']) {
+      const a = anchors.find((x) => attr(openTag(x), 'id') === id);
+      assert.ok(a, `missing #${id}`);
+      assert.ok(bookingLinks.includes(a), `#${id} is not a booking link`);
+      assert.ok(stripTags(a).includes(PRIMARY_CTA), `#${id}: ${stripTags(a)}`);
+    }
+  });
+
+  test('no leftover audit/booking wording from earlier versions', () => {
+    assert.doesNotMatch(visible, /Request a Free Audit|Request Your Free Audit|Book a Free Audit|Book Audit|Send Inquiry/i);
+  });
+
+  test('one central booking configuration, loaded before the script that applies it', () => {
+    const cfgPath = join(ROOT, 'assets', 'js', 'site-config.js');
+    assert.ok(existsSync(cfgPath));
+    const cfg = readFileSync(cfgPath, 'utf8');
+    assert.match(cfg, /bookingUrl:\s*'https:\/\/topmate\.io\/muhammad_dayan[^']*'/);
+    const cfgAt = html.indexOf('<script src="assets/js/site-config.js"');
+    const applyAt = html.indexOf('<script src="assets/js/booking-links.js"');
+    assert.ok(cfgAt > -1 && applyAt > cfgAt, 'site-config.js must load before booking-links.js');
+  });
+});
+
+describe('contact without a form or backend', () => {
+  test('there is no form or form field on the page', () => {
+    assert.doesNotMatch(html, /<form[\s>]/i);
+    assert.doesNotMatch(html, /<(input|textarea|select)[\s>]/i);
+  });
+
+  test('the business email stays available as a secondary contact', () => {
+    const mailtos = [...html.matchAll(/href="mailto:([^"?]+)/g)].map((m) => m[1]);
+    assert.ok(mailtos.length >= 2, 'email link in contact section and footer');
+    for (const m of mailtos) assert.equal(m, 'contact@xiomics.systems');
+    const contact = html.slice(html.indexOf('id="contact"'), html.indexOf('</section>', html.indexOf('id="contact"')));
+    assert.match(contact, /href="mailto:contact@xiomics\.systems"/);
+    assert.match(contact, /data-booking-link/);
+  });
+
+  test('nothing on the page depends on the deferred contact Worker', () => {
+    for (const needle of ['contact-form.js', 'data-endpoint', 'workers.dev', 'contact-worker', 'fetch(', 'cf-turnstile']) {
+      assert.ok(!html.includes(needle), `index.html references ${needle}`);
+    }
+    for (const f of ['site-config.js', 'booking-links.js']) {
+      const js = readFileSync(join(ROOT, 'assets', 'js', f), 'utf8');
+      assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|sendBeacon|workers\.dev/);
+    }
+    assert.ok(!existsSync(join(ROOT, 'assets', 'js', 'contact-form.js')), 'deferred form module must not ship with the site');
+  });
+
+  test('approved wording: no fixed reply-time promise, no implied client portfolio, optional ongoing support', () => {
+    assert.doesNotMatch(visible, /within 24 hours|every caller|runs on its own|open-ended|different sizes and industries|work with companies/i);
+    assert.ok(visible.includes('Contact us to discuss your business requirements.'));
+    assert.ok(visible.includes('We build tailored solutions for businesses across different industries, from small businesses to growing teams.'));
+    assert.ok(visible.includes('Handle incoming calls, answer common enquiries, qualify leads, and route conversations according to your business requirements.'));
+    assert.ok(visible.includes('Automate repetitive tasks so routine business operations require less manual effort.'));
+    assert.ok(visible.includes('Clear project scope, agreed milestones, and defined deliverables.'));
+    assert.match(visible, /optional ongoing support services, available separately and not automatically included in every project/);
+    assert.ok(visible.includes('Serving Businesses Internationally') && visible.includes('Remote-First Delivery'));
+  });
+
+  test('no message ever claims to have been sent', () => {
+    assert.doesNotMatch(visible, /message sent|we'll reach out|has been sent/i);
+  });
+});
+
+describe('unsupported marketing claims are absent', () => {
+  for (const phrase of ['10x', '300%', 'Lead Growth', 'AI Uptime', '24/7', 'Most Popular', 'Proven', 'guarantee',
+    'faster-growing', 'focused exclusively', 'as little as', '100%', 'exactly which', 'No templates', 'highest ROI']) {
+    test(`"${phrase}" is not on the page`, () => assert.ok(!visible.toLowerCase().includes(phrase.toLowerCase()), phrase));
+  }
 });
 
 describe('no secrets committed', () => {
@@ -146,7 +208,7 @@ describe('no secrets committed', () => {
   walk(ROOT);
 
   test('no .dev.vars file with real values exists in the tree', () => {
-    assert.ok(!files.some((f) => f.endsWith(`${'.dev.vars'}`)), '.dev.vars must never be committed');
+    assert.ok(!files.some((f) => f.endsWith('.dev.vars')), '.dev.vars must never be committed');
   });
 
   test('no Zoho token or credential-shaped values in any file', () => {

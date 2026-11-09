@@ -95,7 +95,7 @@ beforeEach(() => {
 });
 
 describe('validation parity with shared vectors', () => {
-  const vectors = JSON.parse(readFileSync(new URL('../../tests/fixtures/inquiry-vectors.json', import.meta.url), 'utf8'));
+  const vectors = JSON.parse(readFileSync(new URL('./fixtures/inquiry-vectors.json', import.meta.url), 'utf8'));
   const expand = (v) => {
     if (!v || typeof v !== 'object') return v;
     if (v.codepoint) return v.prefix + String.fromCodePoint(parseInt(v.codepoint, 16)) + v.suffix;

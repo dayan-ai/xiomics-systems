@@ -1,6 +1,6 @@
 // Server-side validation for contact inquiries. This is the authoritative check.
-// The browser copy lives in assets/js/contact-form.js; both are tested against
-// tests/fixtures/inquiry-vectors.json so their rules cannot drift apart.
+// The (deferred) browser copy lives in contact-worker/client/contact-form.js; both are tested
+// against contact-worker/test/fixtures/inquiry-vectors.json so their rules cannot drift apart.
 
 export const LIMITS = Object.freeze({
   name: { max: 100 },

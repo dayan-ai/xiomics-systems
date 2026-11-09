@@ -1,13 +1,23 @@
-# Xiomics contact-form endpoint
+# Xiomics contact-form endpoint — DEFERRED / INACTIVE
 
-A small Cloudflare Worker that receives inquiries from the www.xiomics.systems contact form and delivers them to **contact@xiomics.systems** through the Zoho Mail REST API.
+> **Status:** not used by the website, and not deployed.
+> - The site's primary conversion is booking through **Topmate** (see `../README.md`). The site has no contact form.
+> - **Nothing in this folder is required** for the current website release:
+>   - no Cloudflare account, Worker deployment or Turnstile widget;
+>   - no Zoho OAuth / Self Client;
+>   - no secrets.
+> - Everything here (Worker, deferred browser form module in `client/`, tests) is kept, and still tested, only for possible future reuse.
+> - `_config.yml` excludes this folder from the published GitHub Pages site.
+> - The setup steps below apply **only if** the owner later decides to bring back a website contact form.
+
+A small Cloudflare Worker that receives inquiries from a (future) www.xiomics.systems contact form and delivers them to **contact@xiomics.systems** through the Zoho Mail REST API.
 
 - **No runtime dependencies.** The Worker uses only `fetch`.
 - **No SMTP password.** It authenticates with an OAuth refresh token limited to two scopes, which can be revoked at any time: `ZohoMail.messages.CREATE` to send, and `ZohoMail.accounts.READ`, used only once during setup to look up the mailbox's account ID.
 - **No DNS changes.** The Worker runs on its free `*.workers.dev` address. A custom domain is optional and needs a separate approval.
 
-## How the site uses it
-The contact form in `../index.html` keeps `action="mailto:contact@xiomics.systems"` permanently, so visitors without JavaScript still get a working email route. JavaScript then chooses the mode from the form's `data-endpoint` attribute:
+## How a site would use it (if re-enabled)
+The deferred browser module is `client/contact-form.js` (tests: `test/contact-form.test.mjs`). To re-enable, copy it to `../assets/js/` and restore a form whose `action` is `mailto:contact@xiomics.systems`, so visitors without JavaScript still get a working email route. JavaScript then chooses the mode from the form's `data-endpoint` attribute:
 
 | `data-endpoint` | Behaviour |
 |---|---|
@@ -24,7 +34,7 @@ The contact form in `../index.html` keeps `action="mailto:contact@xiomics.system
    - A filled honeypot (`xs_hp`) is silently dropped. The browser never sends a filled trap; if autofill fills it, the visitor is offered the email route instead.
    - `elapsed_ms` is required. A form sent under 3 seconds after page load gets `422 too_fast`, and the visitor is asked to press Send again. It is never shown as a success.
    - The Turnstile token must verify, and its hostname must be one of the allowed origins.
-7. **Validation.** This is the same rule set as the browser, and both are tested against `../tests/fixtures/inquiry-vectors.json`.
+7. **Validation.** This is the same rule set as the browser, and both are tested against `test/fixtures/inquiry-vectors.json`.
    - Required fields: name, email, business and message. Non-string values count as missing.
    - Length limits: 100, 254, 120 and 10–5000 characters respectively.
    - A strict email format.

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xiomics Systems — AI Automation Agency</title>
-  <meta name="description" content="Xiomics Systems builds custom AI Agents, workflow automation and Lead Generation Systems to help scale your revenue. Request a free strategy audit." />
+  <title>Xiomics Systems — AI Automation &amp; Digital Transformation</title>
+  <meta name="description" content="Xiomics Systems is an AI automation and digital transformation agency: AI voice agents, workflow automation, custom AI assistants, small-business websites and data dashboards for businesses worldwide. Book a free discovery call." />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -154,21 +154,6 @@
       box-shadow: 0 0 16px rgba(0,212,255,0.3);
     }
 
-    /* Form inputs */
-    .form-input {
-      background: rgba(10,22,40,0.8);
-      border: 1px solid rgba(0,212,255,0.2);
-      border-radius: 8px;
-      color: #e2e8f0;
-      transition: all 0.3s ease;
-      width: 100%;
-      padding: 12px 16px;
-      font-size: 0.95rem;
-      outline: none;
-    }
-    .form-input::placeholder { color: rgba(148,163,184,0.8); }
-    .form-input:focus { border-color: #00D4FF; box-shadow: 0 0 16px rgba(0,212,255,0.2); background: rgba(10,22,40,1); }
-
     /* Mobile menu */
     #mobile-menu {
       background: rgba(2,4,9,0.97);
@@ -235,19 +220,14 @@
     }
     .badge-dot { width:6px; height:6px; border-radius:50%; background:#00D4FF; animation: pulse 1.5s infinite; }
 
-    /* Contact form states (Phase 1) */
-    .hp-field { position: absolute !important; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-    .field-error { margin-top: 0.5rem; font-size: 0.8125rem; line-height: 1.4; color: #fca5a5; }
-    .form-input[aria-invalid="true"] { border-color: #f87171; }
-    .btn-neon:disabled { opacity: 0.7; cursor: progress; transform: none; }
-    .form-status { text-align: center; border-radius: 8px; }
-    .form-status[data-state] { padding: 1rem; border: 1px solid; }
-    .form-status[data-state="success"] { border-color: rgba(0,255,224,0.35); background: rgba(0,255,224,0.06); }
-    .form-status[data-state="info"] { border-color: rgba(0,212,255,0.35); background: rgba(0,212,255,0.06); }
-    .form-status[data-state="error"] { border-color: rgba(248,113,113,0.45); background: rgba(248,113,113,0.08); }
-    .form-status__title { font-weight: 600; color: #f1f5f9; }
-    .form-status__text { margin-top: 0.25rem; font-size: 0.875rem; color: #cbd5e1; }
-    .form-status__link { display: inline-block; margin-top: 0.5rem; font-size: 0.875rem; color: #00D4FF; text-decoration: underline; }
+
+    /* Visually hidden text for screen readers (wins over .btn-neon span positioning) */
+    .sr-note { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    /* Service pillar lists */
+    .service-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+    .service-list li { position: relative; padding-left: 1.1rem; font-size: 0.875rem; line-height: 1.45; color: #cbd5e1; }
+    .service-list li::before { content: ''; position: absolute; left: 0.15rem; top: 0.55em; width: 6px; height: 6px; border-radius: 9999px; background: #00D4FF; }
   </style>
 </head>
 <body class="text-slate-200">
@@ -281,8 +261,8 @@
 
     <!-- CTA + Hamburger -->
     <div class="flex items-center gap-4">
-      <a href="#contact" id="nav-cta" class="hidden md:inline-flex btn-neon px-5 py-2 text-sm">
-        <span>Request a Free Audit</span>
+      <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" id="nav-cta" class="hidden md:inline-flex btn-neon px-5 py-2 text-sm">
+        <span>Book a Free Discovery Call</span><span class="sr-note"> (opens in a new tab)</span>
       </a>
       <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-1" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
         <span class="ham-line block w-6 h-0.5 bg-slate-300 transition-all duration-300"></span>
@@ -298,11 +278,12 @@
       <li><a href="#services" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 border-b border-slate-800 transition-colors">Services</a></li>
       <li><a href="#about" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 border-b border-slate-800 transition-colors">About</a></li>
       <li><a href="#contact" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 transition-colors">Contact</a></li>
-      <li><a href="#contact" class="mobile-link btn-neon inline-flex justify-center px-5 py-2.5 text-sm mt-1 w-full"><span>Request a Free Audit</span></a></li>
+      <li><a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="mobile-link btn-neon inline-flex justify-center px-5 py-2.5 text-sm mt-1 w-full"><span>Book a Free Discovery Call</span><span class="sr-note"> (opens in a new tab)</span></a></li>
     </ul>
   </div>
 </header>
 
+<main id="main">
 
 <!-- ╔══════════════════════════════════════════════════════════╗ -->
 <!-- ║                      HERO SECTION                       ║ -->
@@ -312,7 +293,7 @@
   <!-- Background orbs -->
   <div class="orb w-[600px] h-[600px] top-[-150px] left-[-150px] opacity-20" style="background:radial-gradient(circle, #00D4FF, transparent 70%);"></div>
   <div class="orb w-[500px] h-[500px] bottom-[-100px] right-[-100px] opacity-15" style="background:radial-gradient(circle, #7C3AED, transparent 70%);"></div>
-  <div class="orb w-[300px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10" style="background:radial-gradient(circle, #00FFE0, transparent 70%); animation: pulse-slow 6s infinite;"></div>
+  <div class="orb w-[300px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10" style="background:radial-gradient(circle, #00FFE0, transparent 70%);"></div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center w-full">
 
@@ -320,49 +301,50 @@
     <div class="flex justify-center mb-8 animate-fade-up" style="animation-delay:0.1s;">
       <span class="badge">
         <span class="badge-dot"></span>
-        AI-Powered Business Automation
+        Serving Businesses Internationally
       </span>
     </div>
 
     <!-- Headline -->
-    <h1 id="hero-headline" class="font-grotesk font-bold text-5xl md:text-7xl lg:text-8xl leading-tight mb-6 animate-fade-up" style="animation-delay:0.2s;">
-      Automate Your<br />
-      <span class="gradient-text animate-glow">Business with AI</span>
+    <h1 id="hero-headline" class="font-grotesk font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6 animate-fade-up" style="animation-delay:0.2s;">
+      AI Automation &amp;<br />
+      <span class="gradient-text animate-glow">Digital Transformation</span><br />
+      for Businesses
     </h1>
 
-    <!-- Sub-headline -->
-    <p id="hero-sub" class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up" style="animation-delay:0.35s;">
-      We build custom <span class="text-slate-200 font-medium">AI Agents</span> and <span class="text-slate-200 font-medium">Lead Generation Systems</span> to scale your revenue.
+    <!-- Sub-headline: brand message -->
+    <p id="hero-sub" class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed animate-fade-up" style="animation-delay:0.35s;">
+      We build intelligent AI systems and automated workflows that help businesses reduce repetitive work, streamline operations, improve customer experiences, and grow digitally.
     </p>
 
     <!-- CTAs -->
     <div id="hero-ctas" class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style="animation-delay:0.5s;">
-      <a href="#contact" id="hero-cta-primary" class="btn-neon px-8 py-3.5 text-base font-bold tracking-wide">
-        <span>Request a Free Audit →</span>
+      <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" id="hero-cta-primary" class="btn-neon px-8 py-3.5 text-base font-bold tracking-wide">
+        <span>Book a Free Discovery Call →</span><span class="sr-note"> (opens in a new tab)</span>
       </a>
       <a href="#services" id="hero-cta-secondary" class="btn-outline px-8 py-3.5 text-base font-semibold">
         Explore Services
       </a>
     </div>
 
-    <!-- Floating stats -->
+    <!-- Key facts (no unverified numbers) -->
     <div id="hero-stats" class="grid grid-cols-3 gap-4 max-w-xl mx-auto mt-20 animate-fade-up" style="animation-delay:0.65s;">
       <div class="stat-card p-3 sm:p-4 text-center">
         <div class="text-lg sm:text-2xl md:text-3xl font-bold gradient-text">Free</div>
-        <div class="text-xs text-slate-400 mt-1">Strategy Audit</div>
+        <div class="text-xs text-slate-400 mt-1">Discovery Call</div>
       </div>
       <div class="stat-card p-3 sm:p-4 text-center">
         <div class="text-lg sm:text-2xl md:text-3xl font-bold gradient-text">Custom</div>
-        <div class="text-xs text-slate-400 mt-1">Built Around Your Stack</div>
+        <div class="text-xs text-slate-400 mt-1">Built Around Your Business</div>
       </div>
       <div class="stat-card p-3 sm:p-4 text-center">
-        <div class="text-lg sm:text-2xl md:text-3xl font-bold gradient-text">Remote</div>
-        <div class="text-xs text-slate-400 mt-1">Global Delivery</div>
+        <div class="text-lg sm:text-2xl md:text-3xl font-bold gradient-text">Global</div>
+        <div class="text-xs text-slate-400 mt-1">Remote-First Delivery</div>
       </div>
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40" aria-hidden="true">
       <span class="text-xs text-slate-500 tracking-widest uppercase">Scroll</span>
       <div class="w-px h-10 bg-gradient-to-b from-slate-500 to-transparent"></div>
     </div>
@@ -371,36 +353,36 @@
 
 
 <!-- ╔══════════════════════════════════════════════════════════╗ -->
-<!-- ║                  TICKER / TRUST BAR                     ║ -->
+<!-- ║                  TICKER (decorative)                    ║ -->
 <!-- ╚══════════════════════════════════════════════════════════╝ -->
-<div class="py-5 border-y border-slate-800/60 overflow-hidden bg-dark-900/40">
+<div class="py-5 border-y border-slate-800/60 overflow-hidden bg-dark-900/40" aria-hidden="true">
   <div class="ticker-wrap">
     <div class="ticker-track">
       <!-- Items repeated twice for seamless loop -->
-      <span class="text-slate-600 font-medium text-sm">AI Voice Agents</span>
+      <span class="text-slate-400 font-medium text-sm">AI Voice Agents</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">Smart Lead Generation</span>
+      <span class="text-slate-400 font-medium text-sm">Workflow Automation</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">Workflow Automation</span>
+      <span class="text-slate-400 font-medium text-sm">Custom AI Assistants</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">CRM Integration</span>
+      <span class="text-slate-400 font-medium text-sm">Small Business Websites</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">Conversational AI</span>
+      <span class="text-slate-400 font-medium text-sm">Dashboards &amp; Reporting</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">Revenue Acceleration</span>
+      <span class="text-slate-400 font-medium text-sm">Digital Transformation</span>
       <span class="text-[#00D4FF]">✦</span>
       <!-- Duplicate -->
-      <span class="text-slate-600 font-medium text-sm">AI Voice Agents</span>
+      <span class="text-slate-400 font-medium text-sm">AI Voice Agents</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">Smart Lead Generation</span>
+      <span class="text-slate-400 font-medium text-sm">Workflow Automation</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">Workflow Automation</span>
+      <span class="text-slate-400 font-medium text-sm">Custom AI Assistants</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">CRM Integration</span>
+      <span class="text-slate-400 font-medium text-sm">Small Business Websites</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">Conversational AI</span>
+      <span class="text-slate-400 font-medium text-sm">Dashboards &amp; Reporting</span>
       <span class="text-[#00D4FF]">✦</span>
-      <span class="text-slate-600 font-medium text-sm">Revenue Acceleration</span>
+      <span class="text-slate-400 font-medium text-sm">Digital Transformation</span>
       <span class="text-[#00D4FF]">✦</span>
     </div>
   </div>
@@ -420,100 +402,151 @@
     <div class="text-center mb-16 reveal">
       <span class="badge mb-4 inline-flex">Our Services</span>
       <h2 class="font-grotesk font-bold text-4xl md:text-5xl text-white mb-4">
-        Solutions Built to <span class="gradient-text">Scale</span>
+        Services Built Around <span class="gradient-text">Your Business</span>
       </h2>
-      <p class="text-slate-400 max-w-xl mx-auto text-lg">
-        Every tool we deploy is engineered to cut costs, capture leads, and accelerate growth — automatically.
+      <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+        Tailored AI and digital solutions, designed around the tools and processes you already use.
       </p>
     </div>
 
-    <!-- Cards grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Five service pillars -->
+    <div class="flex flex-wrap justify-center gap-6">
 
-      <!-- Card 1: AI Voice Agents -->
-      <article id="service-voice" class="glass-card rounded-2xl p-8 reveal group">
-        <div class="icon-wrap mb-6">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-            <line x1="12" y1="19" x2="12" y2="23"/>
-            <line x1="8" y1="23" x2="16" y2="23"/>
-          </svg>
+      <!-- A. AI Voice Agents -->
+      <article data-pillar="AI Voice Agents" class="glass-card rounded-2xl p-7 reveal flex flex-col w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+        <div class="icon-wrap mb-5" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
         </div>
-        <h3 class="font-grotesk font-bold text-xl text-white mb-3 group-hover:text-[#00D4FF] transition-colors">
-          AI Voice Agents
-        </h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-5">
-          Deploy intelligent voice bots that qualify leads, book appointments, and handle customer calls — 24/7, without lifting a finger.
-        </p>
-        <div class="flex flex-wrap gap-2">
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.08);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">Real-time NLP</span>
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.08);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">CRM Sync</span>
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.08);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">24/7 Active</span>
-        </div>
-        <a href="#contact" data-service="AI Voice Agents" class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-[#00D4FF] text-sm font-medium hover:underline">
-          <span>Ask about this service</span>
+        <h3 class="font-grotesk font-bold text-xl text-white mb-3">AI Voice Agents</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-4">Handle incoming calls, answer common enquiries, qualify leads, and route conversations according to your business requirements.</p>
+        <ul class="service-list mb-6">
+          <li>Inbound AI calling agents</li>
+          <li>Outbound calling agents</li>
+          <li>AI receptionists</li>
+          <li>Customer support voice agents</li>
+          <li>Lead qualification</li>
+          <li>Appointment scheduling and booking</li>
+          <li>Automated follow-ups</li>
+          <li>Call routing and after-hours support</li>
+        </ul>
+        <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="mt-auto pt-5 border-t border-slate-800/80 flex items-center gap-2 text-[#00D4FF] text-sm font-medium hover:underline">
+          <span>Discuss this on a free call</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span class="sr-note"> (opens in a new tab)</span>
         </a>
       </article>
 
-      <!-- Card 2: Smart Lead Generation (featured) -->
-      <article id="service-leads" class="rounded-2xl p-8 reveal group relative overflow-hidden" style="background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(0,255,224,0.04)); border:1px solid rgba(0,212,255,0.3);">
-        <!-- Featured glow -->
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background:radial-gradient(circle at 50% 0%, rgba(0,212,255,0.12), transparent 70%);"></div>
-        <!-- Badge -->
+      <!-- B. AI & Business Workflow Automation -->
+      <article data-pillar="AI &amp; Business Workflow Automation" class="glass-card rounded-2xl p-7 reveal flex flex-col w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+        <div class="icon-wrap mb-5" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00FFE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <h3 class="font-grotesk font-bold text-xl text-white mb-3">AI &amp; Business Workflow Automation</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-4">Custom workflows built around your existing tools and processes. Automate repetitive tasks so routine business operations require less manual effort.</p>
+        <ul class="service-list mb-6">
+          <li>Sales and lead management automation</li>
+          <li>CRM automation and integrations</li>
+          <li>Email and WhatsApp workflows</li>
+          <li>Lead capture and qualification</li>
+          <li>Customer onboarding</li>
+          <li>Customer support workflows</li>
+          <li>Document and data processing</li>
+          <li>Reporting and operational automation</li>
+          <li>API integrations</li>
+          <li>Cross-platform workflow automation</li>
+          <li>Repetitive administrative task automation</li>
+        </ul>
+        <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="mt-auto pt-5 border-t border-slate-800/80 flex items-center gap-2 text-[#00FFE0] text-sm font-medium hover:underline">
+          <span>Discuss this on a free call</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span class="sr-note"> (opens in a new tab)</span>
+        </a>
+      </article>
+
+      <!-- C. Custom AI Agents & Assistants -->
+      <article data-pillar="Custom AI Agents &amp; Assistants" class="glass-card rounded-2xl p-7 reveal flex flex-col w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+        <div class="icon-wrap mb-5" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+        </div>
+        <h3 class="font-grotesk font-bold text-xl text-white mb-3">Custom AI Agents &amp; Assistants</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-4">AI assistants and agents that work with your documents, knowledge and research tasks.</p>
+        <ul class="service-list mb-6">
+          <li>AI research agents</li>
+          <li>Business knowledge assistants</li>
+          <li>Internal AI assistants</li>
+          <li>Document Q&amp;A systems</li>
+          <li>Intelligent document extraction</li>
+          <li>Multi-step AI workflows</li>
+          <li>Research and information processing agents</li>
+        </ul>
+        <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="mt-auto pt-5 border-t border-slate-800/80 flex items-center gap-2 text-[#00D4FF] text-sm font-medium hover:underline">
+          <span>Discuss this on a free call</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span class="sr-note"> (opens in a new tab)</span>
+        </a>
+      </article>
+
+      <!-- D. Small Business Digital Transformation (highlighted) -->
+      <article data-pillar="Small Business Digital Transformation" class="rounded-2xl p-7 reveal flex flex-col relative overflow-hidden w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]" style="background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(0,255,224,0.04)); border:1px solid rgba(0,212,255,0.3);">
         <div class="absolute top-5 right-5">
-          <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:linear-gradient(135deg,#00D4FF,#00FFE0);color:#020409;">Featured</span>
+          <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:linear-gradient(135deg,#00D4FF,#00FFE0);color:#020409;">For Small Businesses</span>
         </div>
-        <div class="icon-wrap mb-6 relative z-10" style="background:rgba(0,212,255,0.15);border-color:rgba(0,212,255,0.4);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
+        <div class="icon-wrap mb-5" style="background:rgba(0,212,255,0.15);border-color:rgba(0,212,255,0.4);" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         </div>
-        <h3 class="font-grotesk font-bold text-xl text-white mb-3 relative z-10 group-hover:text-[#00D4FF] transition-colors">
-          Smart Lead Generation
-        </h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-5 relative z-10">
-          AI-driven outreach systems that identify, engage, and convert high-value prospects into booked meetings at scale.
-        </p>
-        <div class="flex flex-wrap gap-2 relative z-10">
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.12);color:#00D4FF;border:1px solid rgba(0,212,255,0.3);">Multi-channel</span>
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.12);color:#00D4FF;border:1px solid rgba(0,212,255,0.3);">Auto-qualify</span>
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.12);color:#00D4FF;border:1px solid rgba(0,212,255,0.3);">Analytics</span>
-        </div>
-        <a href="#contact" data-service="Smart Lead Generation" class="mt-6 pt-6 border-t border-slate-700/50 flex items-center gap-2 text-[#00D4FF] text-sm font-medium relative z-10 hover:underline">
-          <span>Ask about this service</span>
+        <h3 class="font-grotesk font-bold text-xl text-white mb-3">Small Business Digital Transformation</h3>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">Helping traditional and small businesses set up or improve their online presence and day-to-day digital tools.</p>
+        <ul class="service-list mb-6">
+          <li>Business websites and landing pages</li>
+          <li>Online catalogs and digital storefront foundations</li>
+          <li>Booking and appointment systems</li>
+          <li>Lead capture forms</li>
+          <li>WhatsApp Business integration</li>
+          <li>Google Business Profile setup and optimization</li>
+          <li>Basic CRM and lead tracking</li>
+          <li>Online customer enquiry systems</li>
+          <li>Digital business process improvements</li>
+        </ul>
+        <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="mt-auto pt-5 border-t border-slate-700/50 flex items-center gap-2 text-[#00D4FF] text-sm font-medium hover:underline">
+          <span>Discuss this on a free call</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span class="sr-note"> (opens in a new tab)</span>
         </a>
       </article>
 
-      <!-- Card 3: Workflow Automation -->
-      <article id="service-workflow" class="glass-card rounded-2xl p-8 reveal group">
-        <div class="icon-wrap mb-6">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00FFE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="7" rx="1"/>
-            <rect x="14" y="3" width="7" height="7" rx="1"/>
-            <rect x="14" y="14" width="7" height="7" rx="1"/>
-            <rect x="3" y="14" width="7" height="7" rx="1"/>
-          </svg>
+      <!-- E. Data Analytics & Business Intelligence -->
+      <article data-pillar="Data Analytics &amp; Business Intelligence" class="glass-card rounded-2xl p-7 reveal flex flex-col w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+        <div class="icon-wrap mb-5" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00FFE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         </div>
-        <h3 class="font-grotesk font-bold text-xl text-white mb-3 group-hover:text-[#00FFE0] transition-colors">
-          Workflow Automation
-        </h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-5">
-          Connect your entire tech stack and eliminate repetitive tasks with custom AI workflows that run in the background, always on.
-        </p>
-        <div class="flex flex-wrap gap-2">
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,255,224,0.07);color:#00FFE0;border:1px solid rgba(0,255,224,0.2);">API Connect</span>
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,255,224,0.07);color:#00FFE0;border:1px solid rgba(0,255,224,0.2);">Zero Code</span>
-          <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,255,224,0.07);color:#00FFE0;border:1px solid rgba(0,255,224,0.2);">Instant Alerts</span>
-        </div>
-        <a href="#contact" data-service="Workflow Automation" class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-[#00FFE0] text-sm font-medium hover:underline">
-          <span>Ask about this service</span>
+        <h3 class="font-grotesk font-bold text-xl text-white mb-3">Data Analytics &amp; Business Intelligence</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-4">Turning business data into clear dashboards and reports you can act on.</p>
+        <ul class="service-list mb-6">
+          <li>Data cleaning and processing</li>
+          <li>Custom dashboards</li>
+          <li>KPI reporting</li>
+          <li>Automated business reports</li>
+          <li>Data-driven insights</li>
+          <li>Business intelligence workflows</li>
+        </ul>
+        <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="mt-auto pt-5 border-t border-slate-800/80 flex items-center gap-2 text-[#00FFE0] text-sm font-medium hover:underline">
+          <span>Discuss this on a free call</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span class="sr-note"> (opens in a new tab)</span>
         </a>
       </article>
 
+    </div>
+
+    <!-- Supporting capabilities -->
+    <div class="mt-12 text-center reveal">
+      <p class="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-4">Supporting services</p>
+      <ul class="flex flex-wrap justify-center gap-3">
+        <li class="text-sm px-4 py-1.5 rounded-full text-slate-200" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);">Automation audits</li>
+        <li class="text-sm px-4 py-1.5 rounded-full text-slate-200" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);">System integrations</li>
+        <li class="text-sm px-4 py-1.5 rounded-full text-slate-200" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);">Workflow optimization</li>
+        <li class="text-sm px-4 py-1.5 rounded-full text-slate-200" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);">Ongoing maintenance (optional)</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -533,60 +566,59 @@
       <div class="reveal">
         <span class="badge mb-5 inline-flex">About Us</span>
         <h2 class="font-grotesk font-bold text-4xl md:text-5xl text-white leading-tight mb-6">
-          We engineer AI systems<br />for <span class="gradient-text-purple">faster-moving</span><br />businesses.
+          AI and digital systems,<br />built around <span class="gradient-text-purple">your business</span>.
         </h2>
         <p class="text-slate-400 leading-relaxed mb-6">
-          Xiomics Systems is an AI automation business that helps B2B companies eliminate inefficiency and unlock growth. We don't sell software — we engineer intelligence that integrates seamlessly into your existing processes.
+          Xiomics Systems is an AI automation and digital transformation agency serving businesses internationally. We build tailored solutions for businesses across different industries, from small businesses to growing teams.
         </p>
         <p class="text-slate-400 leading-relaxed mb-8">
-          From intelligent voice agents that never sleep, to multi-channel lead engines that qualify your pipeline automatically — every system we build is custom, measurable, and built to scale.
+          From AI voice agents and workflow automation to custom AI assistants, business websites and dashboards, every solution is designed around your existing tools, processes and goals.
         </p>
-        <a href="#contact" class="btn-neon inline-flex px-7 py-3 text-sm font-bold">
-          <span>Let's Build Together →</span>
+        <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="btn-neon inline-flex px-7 py-3 text-sm font-bold">
+          <span>Book a Free Discovery Call →</span><span class="sr-note"> (opens in a new tab)</span>
         </a>
       </div>
 
       <!-- Right: Feature list -->
       <div class="reveal">
         <div class="space-y-5">
-          <!-- Feature row -->
           <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
-            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
             <div>
-              <h3 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">100% Custom-Built Systems</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">No templates. Every automation is architected to your exact business model and goals.</p>
+              <h3 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">Custom-Built Solutions</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Every solution is designed around your business model, your existing tools and your goals.</p>
             </div>
           </div>
 
           <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
-            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,255,224,0.07);border:1px solid rgba(0,255,224,0.2);">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,255,224,0.07);border:1px solid rgba(0,255,224,0.2);" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FFE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
             <div>
               <h3 class="text-white font-semibold mb-1 group-hover:text-[#00FFE0] transition-colors">Focused First Deployments</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">We start with one high-impact automation and agree the scope and timeline with you up front — no open-ended projects.</p>
+              <p class="text-slate-400 text-sm leading-relaxed">Clear project scope, agreed milestones, and defined deliverables.</p>
             </div>
           </div>
 
           <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
-            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
             </div>
             <div>
-              <h3 class="text-white font-semibold mb-1 group-hover:text-[#a78bfa] transition-colors">ROI-Focused Approach</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">We agree clear KPIs with you up front — leads, revenue or time saved — and measure every project against them.</p>
+              <h3 class="text-white font-semibold mb-1 group-hover:text-[#a78bfa] transition-colors">Outcome-Focused Approach</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">We agree clear goals with you up front — such as time saved, faster responses or more enquiries — and review progress against them.</p>
             </div>
           </div>
 
           <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
-            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);" aria-hidden="true">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
             </div>
             <div>
-              <h3 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">Ongoing Support & Iteration</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">Your AI systems improve over time. We monitor, optimize, and evolve your automations continuously.</p>
+              <h3 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">Optional Ongoing Support</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Maintenance, monitoring and system improvements are optional ongoing support services, available separately and not automatically included in every project.</p>
             </div>
           </div>
         </div>
@@ -605,13 +637,13 @@
     <div class="absolute inset-0 opacity-30" style="background:radial-gradient(ellipse at center, rgba(0,212,255,0.15), transparent 70%);"></div>
     <div class="relative z-10">
       <h2 class="font-grotesk font-bold text-3xl md:text-4xl text-white mb-4">
-        Ready to run on autopilot?
+        Ready to automate and grow?
       </h2>
-      <p class="text-slate-400 mb-8 text-lg max-w-xl mx-auto">
-        Request a free 30-minute strategy audit to find out which automations could deliver the most value for your business.
+      <p class="text-slate-300 mb-8 text-lg max-w-xl mx-auto">
+        Book a free discovery call to talk through your goals and find practical first steps for AI automation and digital growth.
       </p>
-      <a href="#contact" class="btn-neon inline-flex px-10 py-4 text-base font-bold">
-        <span>Request Your Free Audit →</span>
+      <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="btn-neon inline-flex px-10 py-4 text-base font-bold">
+        <span>Book a Free Discovery Call →</span><span class="sr-note"> (opens in a new tab)</span>
       </a>
     </div>
   </div>
@@ -619,8 +651,12 @@
 
 
 <!-- ╔══════════════════════════════════════════════════════════╗ -->
-<!-- ║                  CONTACT SECTION                        ║ -->
+<!-- ║                  CONTACT / BOOKING                      ║ -->
 <!-- ╚══════════════════════════════════════════════════════════╝ -->
+<!--
+  Bookings go through Topmate. The link is configured once in assets/js/site-config.js.
+  There is deliberately no contact form on this site (see the repository README).
+-->
 <section id="contact" class="relative py-28 px-6 overflow-hidden">
   <div class="orb w-[600px] h-[600px] bottom-0 left-1/2 -translate-x-1/2 opacity-[0.08]" style="background:radial-gradient(circle, #00D4FF, transparent 65%);"></div>
 
@@ -630,138 +666,77 @@
     <div class="text-center mb-14 reveal">
       <span class="badge mb-4 inline-flex">Get In Touch</span>
       <h2 class="font-grotesk font-bold text-4xl md:text-5xl text-white mb-4">
-        Let's Build Your <span class="gradient-text">AI Stack</span>
+        Let's Talk About <span class="gradient-text">Your Business</span>
       </h2>
-      <p class="text-slate-400 max-w-xl mx-auto text-lg">
-        Tell us about your business and we'll reply by email within 24 hours to arrange your free strategy audit — no obligation.
+      <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+        Book a free discovery call to talk through your goals, your current tools and where AI automation or digital tools could help — no obligation.
       </p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
 
-      <!-- Left: Contact info -->
-      <div class="lg:col-span-2 reveal">
-        <div class="glass-card rounded-2xl p-8 h-full flex flex-col justify-between">
-          <div>
-            <h3 class="font-grotesk font-bold text-xl text-white mb-6">Contact Information</h3>
-
-            <div class="space-y-6">
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                </div>
-                <div>
-                  <div class="text-xs text-slate-400 mb-0.5">Email</div>
-                  <a href="mailto:contact@xiomics.systems" id="contact-email" class="text-slate-200 hover:text-[#00D4FF] transition-colors text-sm font-medium">
-                    contact@xiomics.systems
-                  </a>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                </div>
-                <div>
-                  <div class="text-xs text-slate-400 mb-0.5">Response Time</div>
-                  <span class="text-slate-200 text-sm font-medium">Within 24 hours</span>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-4">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </div>
-                <div>
-                  <div class="text-xs text-slate-400 mb-0.5">Availability</div>
-                  <span class="text-slate-200 text-sm font-medium">Global — Remote First</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Divider -->
-          <div class="border-t border-slate-800 my-8"></div>
-
-          <!-- Audit checklist -->
-          <div>
-            <p class="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-4">What's in the Free Audit?</p>
-            <ul class="space-y-3">
-              <li class="flex items-center gap-3 text-slate-400 text-sm">
-                <span class="text-[#00D4FF]">✓</span> Automation opportunity analysis
-              </li>
-              <li class="flex items-center gap-3 text-slate-400 text-sm">
-                <span class="text-[#00D4FF]">✓</span> Custom AI roadmap for your business
-              </li>
-              <li class="flex items-center gap-3 text-slate-400 text-sm">
-                <span class="text-[#00D4FF]">✓</span> ROI estimation & quick-win identification
-              </li>
-              <li class="flex items-center gap-3 text-slate-400 text-sm">
-                <span class="text-[#00D4FF]">✓</span> No obligation
-              </li>
-            </ul>
-          </div>
+      <!-- Booking -->
+      <div class="lg:col-span-3 reveal">
+        <div class="glass-card rounded-2xl p-8 h-full flex flex-col">
+          <h3 class="font-grotesk font-bold text-xl text-white mb-3">Free Discovery Call</h3>
+          <p class="text-slate-400 leading-relaxed mb-6">Pick a time that suits you on Topmate. The booking page opens in a new tab.</p>
+          <p class="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-4">What we'll talk about</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-slate-300 text-sm"><span class="text-[#00D4FF]" aria-hidden="true">✓</span> Your business, goals and current tools</li>
+            <li class="flex items-start gap-3 text-slate-300 text-sm"><span class="text-[#00D4FF]" aria-hidden="true">✓</span> Repetitive work that could be automated</li>
+            <li class="flex items-start gap-3 text-slate-300 text-sm"><span class="text-[#00D4FF]" aria-hidden="true">✓</span> Website, booking or online presence needs</li>
+            <li class="flex items-start gap-3 text-slate-300 text-sm"><span class="text-[#00D4FF]" aria-hidden="true">✓</span> Practical next steps — no obligation</li>
+          </ul>
+          <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" id="contact-cta" class="btn-neon mt-auto w-full inline-flex justify-center py-3.5 text-base font-bold tracking-wide">
+            <span>Book a Free Discovery Call →</span><span class="sr-note"> (opens in a new tab)</span>
+          </a>
+          <p class="text-xs text-slate-400 text-center mt-3">Scheduling is handled by Topmate.</p>
         </div>
       </div>
 
-      <!-- Right: Form -->
-      <div class="lg:col-span-3 reveal">
-        <!--
-          Contact form configuration (see assets/js/contact-form.js):
-          - action="mailto:contact@xiomics.systems" stays as is: without JavaScript the browser opens an email.
-          - Add data-endpoint="https://<worker>/api/contact" only after the contact Worker is deployed and
-            verified (contact-worker/README.md). Without it, the form opens the visitor's email app.
-        -->
-        <form id="contact-form" class="glass-card rounded-2xl p-8 space-y-5" action="mailto:contact@xiomics.systems" method="post" enctype="text/plain" data-fallback-email="contact@xiomics.systems">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label for="name" class="block text-sm font-medium text-slate-400 mb-2">Full Name</label>
-              <input id="name" name="name" type="text" required maxlength="100" autocomplete="name" placeholder="John Smith" class="form-input" aria-describedby="name-error" />
-              <p id="name-error" class="field-error" hidden></p>
+      <!-- Email -->
+      <div class="lg:col-span-2 reveal">
+        <div class="glass-card rounded-2xl p-8 h-full">
+          <h3 class="font-grotesk font-bold text-xl text-white mb-6">Prefer email?</h3>
+          <div class="space-y-6">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400 mb-0.5">Email</div>
+                <a href="mailto:contact@xiomics.systems" id="contact-email" class="text-slate-200 hover:text-[#00D4FF] transition-colors text-sm font-medium">contact@xiomics.systems</a>
+              </div>
             </div>
-            <div>
-              <label for="email" class="block text-sm font-medium text-slate-400 mb-2">Email Address</label>
-              <input id="email" name="email" type="email" required maxlength="254" autocomplete="email" placeholder="john@company.com" class="form-input" aria-describedby="email-error" />
-              <p id="email-error" class="field-error" hidden></p>
+
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400 mb-0.5">Next step</div>
+                <span class="text-slate-200 text-sm font-medium">Contact us to discuss your business requirements.</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400 mb-0.5">Availability</div>
+                <span class="text-slate-200 text-sm font-medium">Global — Remote First</span>
+              </div>
             </div>
           </div>
-
-          <div>
-            <label for="business" class="block text-sm font-medium text-slate-400 mb-2">Business Name</label>
-            <input id="business" name="business" type="text" required maxlength="120" autocomplete="organization" placeholder="Acme Corp" class="form-input" aria-describedby="business-error" />
-            <p id="business-error" class="field-error" hidden></p>
-          </div>
-
-          <div>
-            <label for="message" class="block text-sm font-medium text-slate-400 mb-2">Tell us about your business</label>
-            <textarea id="message" name="message" rows="5" required minlength="10" maxlength="5000" placeholder="Describe your biggest operational bottleneck or what you'd like to automate..." class="form-input resize-none" aria-describedby="message-error"></textarea>
-            <p id="message-error" class="field-error" hidden></p>
-          </div>
-
-          <!-- Spam trap: hidden from people and screen readers; automated senders tend to fill it in. -->
-          <div class="hp-field" aria-hidden="true">
-            <label for="xs-hp">Leave this field empty</label>
-            <input id="xs-hp" name="xs_hp" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-
-          <button id="submit-btn" type="submit" class="btn-neon w-full py-3.5 text-base font-bold tracking-wide mt-2">
-            <span id="submit-label">Send Inquiry →</span>
-          </button>
-          <p id="form-mode-hint" class="text-xs text-slate-400 text-center">This opens your email app with your message ready to send to contact@xiomics.systems.</p>
-          <p class="text-xs text-slate-400 text-center">We use your details only to reply to your inquiry.</p>
-
-          <div id="form-status" class="form-status" role="status" aria-live="polite" aria-atomic="true">
-            <p class="form-status__title" data-status-title></p>
-            <p class="form-status__text" data-status-text></p>
-            <a class="form-status__link" data-status-link href="mailto:contact@xiomics.systems" hidden>Email contact@xiomics.systems</a>
-          </div>
-        </form>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
 
+</main>
 
 <!-- ╔══════════════════════════════════════════════════════════╗ -->
 <!-- ║                      FOOTER                             ║ -->
@@ -792,6 +767,7 @@
         <a href="#services" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">Services</a>
         <a href="#about" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">About</a>
         <a href="#contact" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">Contact</a>
+        <a href="https://topmate.io/muhammad_dayan/2397800" data-booking-link target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">Book a Call<span class="sr-note"> (opens in a new tab)</span></a>
         <a href="mailto:contact@xiomics.systems" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">contact@xiomics.systems</a>
       </div>
 
@@ -851,8 +827,6 @@
     revealObserver.observe(el);
   });
 
-  /* ── Contact form: see assets/js/contact-form.js ── */
-
   /* ── Smooth active nav highlight ── */
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('#nav-links a');
@@ -871,7 +845,8 @@
 
   sections.forEach(s => sectionObserver.observe(s));
 </script>
-<script src="assets/js/contact-form.js" defer></script>
+<script src="assets/js/site-config.js" defer></script>
+<script src="assets/js/booking-links.js" defer></script>
 
 </body>
 </html>

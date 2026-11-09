@@ -1,5 +1,5 @@
 {
-  "description": "Shared validation vectors. Both the browser validator (assets/js/contact-form.js) and the server validator (contact-worker/src/validation.js) must agree on every case. Strings of the form {\"repeat\": \"a\", \"times\": N} or {\"codepoint\": \"202E\", \"prefix\": \"x\", \"suffix\": \"y\"} are expanded by the tests (code points are written as hex so invisible characters stay reviewable). Only reserved example domains are used.",
+  "description": "Shared validation vectors. Both the deferred browser validator (contact-worker/client/contact-form.js) and the server validator (contact-worker/src/validation.js) must agree on every case. Strings of the form {\"repeat\": \"a\", \"times\": N} or {\"codepoint\": \"202E\", \"prefix\": \"x\", \"suffix\": \"y\"} are expanded by the tests (code points are written as hex so invisible characters stay reviewable). Only reserved example domains are used.",
   "base": {
     "name": "Ada Lovelace",
     "email": "ada@example.com",
