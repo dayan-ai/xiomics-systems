@@ -1,0 +1,108 @@
+# Build-only validation for pull requests into main. It NEVER deploys.
+#
+# What it proves, on GitHub's own infrastructure:
+#   1. the Node test suite passes;
+#   2. the official GitHub Pages Jekyll build (actions/jekyll-build-pages) succeeds with the repository's
+#      _config.yml; and
+#   3. the generated _site/ contains exactly the intended public files and none of the repository-only
+#      material (contact-worker/, tests/, README.md, _config.yml, ...).
+#
+# Safety: read-only token (contents: read), no actions/deploy-pages, no actions/upload-pages-artifact,
+# no pages: write, no id-token: write. Pull-request trigger only.
+name: PR validation (build only)
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Tests and Jekyll build check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the PR branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run the test suite
+        run: node --test
+
+      - name: Build the site with the official GitHub Pages Jekyll action
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Verify the generated _site artifact
+        run: |
+          set -euo pipefail
+          test -d _site || { echo "::error::_site was not generated"; exit 1; }
+
+          echo "=== Generated files in _site (actual build output) ==="
+          ( cd _site && find . -type f | sort )
+          echo "=== End of file list ==="
+
+          fail=0
+
+          echo "--- Required files ---"
+          for f in CNAME index.html assets/js/site-config.js assets/js/booking-links.js; do
+            if [ -f "_site/$f" ]; then
+              echo "OK   present: $f"
+            else
+              echo "::error::MISSING required file: $f"; fail=1
+            fi
+          done
+
+          echo "--- Forbidden paths ---"
+          for p in contact-worker tests README.md README.html README _config.yml package.json package-lock.json .github; do
+            if [ -e "_site/$p" ]; then
+              echo "::error::FORBIDDEN path is published: $p"; fail=1
+            else
+              echo "OK   absent:  $p"
+            fi
+          done
+
+          echo "--- Forbidden file types anywhere in _site ---"
+          bad=$( cd _site && find . -type f \( -name '*.md' -o -name '*.mjs' -o -name '*.toml' -o -name '*.test.*' \
+                 -o -name 'package*.json' -o -name '*.yml' -o -name '*.yaml' -o -name '.dev.vars*' -o -name '.env*' \) | sort )
+          if [ -n "$bad" ]; then
+            echo "::error::Forbidden file types found in _site:"; echo "$bad"; fail=1
+          else
+            echo "OK   none found"
+          fi
+
+          echo "--- index.html is the unmodified source file ---"
+          if cmp -s index.html _site/index.html; then
+            echo "OK   _site/index.html is byte-identical to index.html"
+          else
+            echo "::error::_site/index.html differs from index.html"; fail=1
+          fi
+
+          echo "--- Unexpected extra files (reported, not fatal) ---"
+          expected=$'./CNAME\n./assets/js/booking-links.js\n./assets/js/site-config.js\n./index.html'
+          actual=$( cd _site && find . -type f | sort )
+          extra=$( comm -13 <(printf '%s\n' "$expected") <(printf '%s\n' "$actual") )
+          if [ -n "$extra" ]; then
+            echo "::warning::Files beyond the four expected ones were generated:"; echo "$extra"
+          else
+            echo "OK   _site contains exactly the four intended files"
+          fi
+
+          if [ "$fail" -ne 0 ]; then
+            echo "::error::_site validation FAILED"; exit 1
+          fi
+          echo "_site validation passed. Nothing was deployed or uploaded."
