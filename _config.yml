@@ -1,0 +1,12 @@
+# GitHub Pages (Jekyll) build settings for www.xiomics.systems.
+# Purpose: publish ONLY the website (index.html, CNAME, assets/). Repository-only material
+# — the deferred contact Worker, the test suite and maintainer docs — must never be served.
+# Hosting, custom domain (CNAME) and HTTPS are configured in GitHub Pages settings, not here.
+exclude:
+  - contact-worker
+  - tests
+  - README.md
+  - package.json
+  - package-lock.json
+  - node_modules
+  - vendor
