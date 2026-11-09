@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Xiomics Systems — AI Automation Agency</title>
-  <meta name="description" content="Xiomics Systems builds custom AI Agents and Lead Generation Systems to scale your revenue. Book a free audit today." />
+  <meta name="description" content="Xiomics Systems builds custom AI Agents, workflow automation and Lead Generation Systems to help scale your revenue. Request a free strategy audit." />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -166,7 +166,7 @@
       font-size: 0.95rem;
       outline: none;
     }
-    .form-input::placeholder { color: rgba(148,163,184,0.5); }
+    .form-input::placeholder { color: rgba(148,163,184,0.8); }
     .form-input:focus { border-color: #00D4FF; box-shadow: 0 0 16px rgba(0,212,255,0.2); background: rgba(10,22,40,1); }
 
     /* Mobile menu */
@@ -234,6 +234,20 @@
       letter-spacing: 0.05em;
     }
     .badge-dot { width:6px; height:6px; border-radius:50%; background:#00D4FF; animation: pulse 1.5s infinite; }
+
+    /* Contact form states (Phase 1) */
+    .hp-field { position: absolute !important; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    .field-error { margin-top: 0.5rem; font-size: 0.8125rem; line-height: 1.4; color: #fca5a5; }
+    .form-input[aria-invalid="true"] { border-color: #f87171; }
+    .btn-neon:disabled { opacity: 0.7; cursor: progress; transform: none; }
+    .form-status { text-align: center; border-radius: 8px; }
+    .form-status[data-state] { padding: 1rem; border: 1px solid; }
+    .form-status[data-state="success"] { border-color: rgba(0,255,224,0.35); background: rgba(0,255,224,0.06); }
+    .form-status[data-state="info"] { border-color: rgba(0,212,255,0.35); background: rgba(0,212,255,0.06); }
+    .form-status[data-state="error"] { border-color: rgba(248,113,113,0.45); background: rgba(248,113,113,0.08); }
+    .form-status__title { font-weight: 600; color: #f1f5f9; }
+    .form-status__text { margin-top: 0.25rem; font-size: 0.875rem; color: #cbd5e1; }
+    .form-status__link { display: inline-block; margin-top: 0.5rem; font-size: 0.875rem; color: #00D4FF; text-decoration: underline; }
   </style>
 </head>
 <body class="text-slate-200">
@@ -268,9 +282,9 @@
     <!-- CTA + Hamburger -->
     <div class="flex items-center gap-4">
       <a href="#contact" id="nav-cta" class="hidden md:inline-flex btn-neon px-5 py-2 text-sm">
-        <span>Book a Free Audit</span>
+        <span>Request a Free Audit</span>
       </a>
-      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-1" aria-label="Toggle menu">
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-1" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
         <span class="ham-line block w-6 h-0.5 bg-slate-300 transition-all duration-300"></span>
         <span class="ham-line block w-6 h-0.5 bg-slate-300 transition-all duration-300"></span>
         <span class="ham-line block w-6 h-0.5 bg-slate-300 transition-all duration-300"></span>
@@ -284,7 +298,7 @@
       <li><a href="#services" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 border-b border-slate-800 transition-colors">Services</a></li>
       <li><a href="#about" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 border-b border-slate-800 transition-colors">About</a></li>
       <li><a href="#contact" class="mobile-link block text-slate-300 hover:text-[#00D4FF] py-2 transition-colors">Contact</a></li>
-      <li><a href="#contact" class="mobile-link btn-neon inline-flex justify-center px-5 py-2.5 text-sm mt-1 w-full"><span>Book a Free Audit</span></a></li>
+      <li><a href="#contact" class="mobile-link btn-neon inline-flex justify-center px-5 py-2.5 text-sm mt-1 w-full"><span>Request a Free Audit</span></a></li>
     </ul>
   </div>
 </header>
@@ -324,7 +338,7 @@
     <!-- CTAs -->
     <div id="hero-ctas" class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style="animation-delay:0.5s;">
       <a href="#contact" id="hero-cta-primary" class="btn-neon px-8 py-3.5 text-base font-bold tracking-wide">
-        <span>Book a Free Audit →</span>
+        <span>Request a Free Audit →</span>
       </a>
       <a href="#services" id="hero-cta-secondary" class="btn-outline px-8 py-3.5 text-base font-semibold">
         Explore Services
@@ -333,17 +347,17 @@
 
     <!-- Floating stats -->
     <div id="hero-stats" class="grid grid-cols-3 gap-4 max-w-xl mx-auto mt-20 animate-fade-up" style="animation-delay:0.65s;">
-      <div class="stat-card p-4 text-center">
-        <div class="text-2xl md:text-3xl font-bold gradient-text">10x</div>
-        <div class="text-xs text-slate-500 mt-1">Faster Workflows</div>
+      <div class="stat-card p-3 sm:p-4 text-center">
+        <div class="text-lg sm:text-2xl md:text-3xl font-bold gradient-text">Free</div>
+        <div class="text-xs text-slate-400 mt-1">Strategy Audit</div>
       </div>
-      <div class="stat-card p-4 text-center">
-        <div class="text-2xl md:text-3xl font-bold gradient-text">300%</div>
-        <div class="text-xs text-slate-500 mt-1">Lead Growth</div>
+      <div class="stat-card p-3 sm:p-4 text-center">
+        <div class="text-lg sm:text-2xl md:text-3xl font-bold gradient-text">Custom</div>
+        <div class="text-xs text-slate-400 mt-1">Built Around Your Stack</div>
       </div>
-      <div class="stat-card p-4 text-center">
-        <div class="text-2xl md:text-3xl font-bold gradient-text">24/7</div>
-        <div class="text-xs text-slate-500 mt-1">AI Uptime</div>
+      <div class="stat-card p-3 sm:p-4 text-center">
+        <div class="text-lg sm:text-2xl md:text-3xl font-bold gradient-text">Remote</div>
+        <div class="text-xs text-slate-400 mt-1">Global Delivery</div>
       </div>
     </div>
 
@@ -437,10 +451,10 @@
           <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.08);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">CRM Sync</span>
           <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.08);color:#00D4FF;border:1px solid rgba(0,212,255,0.2);">24/7 Active</span>
         </div>
-        <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-[#00D4FF] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span>Learn more</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
+        <a href="#contact" data-service="AI Voice Agents" class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-[#00D4FF] text-sm font-medium hover:underline">
+          <span>Ask about this service</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </article>
 
       <!-- Card 2: Smart Lead Generation (featured) -->
@@ -449,7 +463,7 @@
         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background:radial-gradient(circle at 50% 0%, rgba(0,212,255,0.12), transparent 70%);"></div>
         <!-- Badge -->
         <div class="absolute top-5 right-5">
-          <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:linear-gradient(135deg,#00D4FF,#00FFE0);color:#020409;">Most Popular</span>
+          <span class="text-xs px-2.5 py-1 rounded-full font-semibold" style="background:linear-gradient(135deg,#00D4FF,#00FFE0);color:#020409;">Featured</span>
         </div>
         <div class="icon-wrap mb-6 relative z-10" style="background:rgba(0,212,255,0.15);border-color:rgba(0,212,255,0.4);">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -467,10 +481,10 @@
           <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.12);color:#00D4FF;border:1px solid rgba(0,212,255,0.3);">Auto-qualify</span>
           <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,212,255,0.12);color:#00D4FF;border:1px solid rgba(0,212,255,0.3);">Analytics</span>
         </div>
-        <div class="mt-6 pt-6 border-t border-slate-700/50 flex items-center gap-2 text-[#00D4FF] text-sm font-medium relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span>Learn more</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
+        <a href="#contact" data-service="Smart Lead Generation" class="mt-6 pt-6 border-t border-slate-700/50 flex items-center gap-2 text-[#00D4FF] text-sm font-medium relative z-10 hover:underline">
+          <span>Ask about this service</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </article>
 
       <!-- Card 3: Workflow Automation -->
@@ -494,10 +508,10 @@
           <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,255,224,0.07);color:#00FFE0;border:1px solid rgba(0,255,224,0.2);">Zero Code</span>
           <span class="text-xs px-3 py-1 rounded-full" style="background:rgba(0,255,224,0.07);color:#00FFE0;border:1px solid rgba(0,255,224,0.2);">Instant Alerts</span>
         </div>
-        <div class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-[#00FFE0] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span>Learn more</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
+        <a href="#contact" data-service="Workflow Automation" class="mt-6 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-[#00FFE0] text-sm font-medium hover:underline">
+          <span>Ask about this service</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </article>
 
     </div>
@@ -519,10 +533,10 @@
       <div class="reveal">
         <span class="badge mb-5 inline-flex">About Us</span>
         <h2 class="font-grotesk font-bold text-4xl md:text-5xl text-white leading-tight mb-6">
-          We're the AI team<br />behind <span class="gradient-text-purple">faster-growing</span><br />businesses.
+          We engineer AI systems<br />for <span class="gradient-text-purple">faster-moving</span><br />businesses.
         </h2>
         <p class="text-slate-400 leading-relaxed mb-6">
-          Xiomics Systems is a specialist AI Automation Agency focused exclusively on helping B2B companies eliminate inefficiency and unlock growth. We don't sell software — we engineer intelligence that integrates seamlessly into your existing processes.
+          Xiomics Systems is an AI automation business that helps B2B companies eliminate inefficiency and unlock growth. We don't sell software — we engineer intelligence that integrates seamlessly into your existing processes.
         </p>
         <p class="text-slate-400 leading-relaxed mb-8">
           From intelligent voice agents that never sleep, to multi-channel lead engines that qualify your pipeline automatically — every system we build is custom, measurable, and built to scale.
@@ -541,8 +555,8 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
             <div>
-              <h4 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">100% Custom-Built Systems</h4>
-              <p class="text-slate-500 text-sm leading-relaxed">No templates. Every automation is architected to your exact business model and goals.</p>
+              <h3 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">100% Custom-Built Systems</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">No templates. Every automation is architected to your exact business model and goals.</p>
             </div>
           </div>
 
@@ -551,18 +565,18 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00FFE0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
             <div>
-              <h4 class="text-white font-semibold mb-1 group-hover:text-[#00FFE0] transition-colors">Rapid Deployment</h4>
-              <p class="text-slate-500 text-sm leading-relaxed">From kickoff to live automation in as little as 2 weeks — speed is built into our process.</p>
+              <h3 class="text-white font-semibold mb-1 group-hover:text-[#00FFE0] transition-colors">Focused First Deployments</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">We start with one high-impact automation and agree the scope and timeline with you up front — no open-ended projects.</p>
             </div>
           </div>
 
           <div class="flex gap-5 items-start p-5 rounded-xl transition-all duration-300 hover:bg-slate-800/30 group">
             <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
             </div>
             <div>
-              <h4 class="text-white font-semibold mb-1 group-hover:text-[#a78bfa] transition-colors">Proven ROI-Focused Approach</h4>
-              <p class="text-slate-500 text-sm leading-relaxed">We measure what matters — leads, revenue, and time saved. Every project comes with clear KPIs.</p>
+              <h3 class="text-white font-semibold mb-1 group-hover:text-[#a78bfa] transition-colors">ROI-Focused Approach</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">We agree clear KPIs with you up front — leads, revenue or time saved — and measure every project against them.</p>
             </div>
           </div>
 
@@ -571,8 +585,8 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
             </div>
             <div>
-              <h4 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">Ongoing Support & Iteration</h4>
-              <p class="text-slate-500 text-sm leading-relaxed">Your AI systems improve over time. We monitor, optimize, and evolve your automations continuously.</p>
+              <h3 class="text-white font-semibold mb-1 group-hover:text-[#00D4FF] transition-colors">Ongoing Support & Iteration</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Your AI systems improve over time. We monitor, optimize, and evolve your automations continuously.</p>
             </div>
           </div>
         </div>
@@ -594,10 +608,10 @@
         Ready to run on autopilot?
       </h2>
       <p class="text-slate-400 mb-8 text-lg max-w-xl mx-auto">
-        Book a free 30-minute strategy audit and discover exactly which automations will generate the highest ROI for your business.
+        Request a free 30-minute strategy audit to find out which automations could deliver the most value for your business.
       </p>
       <a href="#contact" class="btn-neon inline-flex px-10 py-4 text-base font-bold">
-        <span>Book Your Free Audit Now →</span>
+        <span>Request Your Free Audit →</span>
       </a>
     </div>
   </div>
@@ -619,7 +633,7 @@
         Let's Build Your <span class="gradient-text">AI Stack</span>
       </h2>
       <p class="text-slate-400 max-w-xl mx-auto text-lg">
-        Fill in the form and we'll schedule your free strategy audit — no strings attached.
+        Tell us about your business and we'll reply by email within 24 hours to arrange your free strategy audit — no obligation.
       </p>
     </div>
 
@@ -637,7 +651,7 @@
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 </div>
                 <div>
-                  <div class="text-xs text-slate-500 mb-0.5">Email</div>
+                  <div class="text-xs text-slate-400 mb-0.5">Email</div>
                   <a href="mailto:contact@xiomics.systems" id="contact-email" class="text-slate-200 hover:text-[#00D4FF] transition-colors text-sm font-medium">
                     contact@xiomics.systems
                   </a>
@@ -649,7 +663,7 @@
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 </div>
                 <div>
-                  <div class="text-xs text-slate-500 mb-0.5">Response Time</div>
+                  <div class="text-xs text-slate-400 mb-0.5">Response Time</div>
                   <span class="text-slate-200 text-sm font-medium">Within 24 hours</span>
                 </div>
               </div>
@@ -659,7 +673,7 @@
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 </div>
                 <div>
-                  <div class="text-xs text-slate-500 mb-0.5">Availability</div>
+                  <div class="text-xs text-slate-400 mb-0.5">Availability</div>
                   <span class="text-slate-200 text-sm font-medium">Global — Remote First</span>
                 </div>
               </div>
@@ -683,7 +697,7 @@
                 <span class="text-[#00D4FF]">✓</span> ROI estimation & quick-win identification
               </li>
               <li class="flex items-center gap-3 text-slate-400 text-sm">
-                <span class="text-[#00D4FF]">✓</span> Zero obligation, 100% value
+                <span class="text-[#00D4FF]">✓</span> No obligation
               </li>
             </ul>
           </div>
@@ -692,37 +706,54 @@
 
       <!-- Right: Form -->
       <div class="lg:col-span-3 reveal">
-        <form id="contact-form" class="glass-card rounded-2xl p-8 space-y-5">
+        <!--
+          Contact form configuration (see assets/js/contact-form.js):
+          - action="mailto:contact@xiomics.systems" stays as is: without JavaScript the browser opens an email.
+          - Add data-endpoint="https://<worker>/api/contact" only after the contact Worker is deployed and
+            verified (contact-worker/README.md). Without it, the form opens the visitor's email app.
+        -->
+        <form id="contact-form" class="glass-card rounded-2xl p-8 space-y-5" action="mailto:contact@xiomics.systems" method="post" enctype="text/plain" data-fallback-email="contact@xiomics.systems">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label for="name" class="block text-sm font-medium text-slate-400 mb-2">Full Name</label>
-              <input id="name" name="name" type="text" required placeholder="John Smith" class="form-input" />
+              <input id="name" name="name" type="text" required maxlength="100" autocomplete="name" placeholder="John Smith" class="form-input" aria-describedby="name-error" />
+              <p id="name-error" class="field-error" hidden></p>
             </div>
             <div>
               <label for="email" class="block text-sm font-medium text-slate-400 mb-2">Email Address</label>
-              <input id="email" name="email" type="email" required placeholder="john@company.com" class="form-input" />
+              <input id="email" name="email" type="email" required maxlength="254" autocomplete="email" placeholder="john@company.com" class="form-input" aria-describedby="email-error" />
+              <p id="email-error" class="field-error" hidden></p>
             </div>
           </div>
 
           <div>
             <label for="business" class="block text-sm font-medium text-slate-400 mb-2">Business Name</label>
-            <input id="business" name="business" type="text" required placeholder="Acme Corp" class="form-input" />
+            <input id="business" name="business" type="text" required maxlength="120" autocomplete="organization" placeholder="Acme Corp" class="form-input" aria-describedby="business-error" />
+            <p id="business-error" class="field-error" hidden></p>
           </div>
 
           <div>
             <label for="message" class="block text-sm font-medium text-slate-400 mb-2">Tell us about your business</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Describe your biggest operational bottleneck or what you'd like to automate..." class="form-input resize-none"></textarea>
+            <textarea id="message" name="message" rows="5" required minlength="10" maxlength="5000" placeholder="Describe your biggest operational bottleneck or what you'd like to automate..." class="form-input resize-none" aria-describedby="message-error"></textarea>
+            <p id="message-error" class="field-error" hidden></p>
+          </div>
+
+          <!-- Spam trap: hidden from people and screen readers; automated senders tend to fill it in. -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="xs-hp">Leave this field empty</label>
+            <input id="xs-hp" name="xs_hp" type="text" tabindex="-1" autocomplete="off" />
           </div>
 
           <button id="submit-btn" type="submit" class="btn-neon w-full py-3.5 text-base font-bold tracking-wide mt-2">
-            <span id="submit-label">Send Message & Book Audit →</span>
+            <span id="submit-label">Send Inquiry →</span>
           </button>
+          <p id="form-mode-hint" class="text-xs text-slate-400 text-center">This opens your email app with your message ready to send to contact@xiomics.systems.</p>
+          <p class="text-xs text-slate-400 text-center">We use your details only to reply to your inquiry.</p>
 
-          <!-- Success message -->
-          <div id="form-success" class="hidden text-center py-4">
-            <div class="text-[#00FFE0] text-2xl mb-2">✓</div>
-            <p class="text-slate-200 font-semibold">Message sent!</p>
-            <p class="text-slate-400 text-sm mt-1">We'll reach out within 24 hours.</p>
+          <div id="form-status" class="form-status" role="status" aria-live="polite" aria-atomic="true">
+            <p class="form-status__title" data-status-title></p>
+            <p class="form-status__text" data-status-text></p>
+            <a class="form-status__link" data-status-link href="mailto:contact@xiomics.systems" hidden>Email contact@xiomics.systems</a>
           </div>
         </form>
       </div>
@@ -752,16 +783,16 @@
       </div>
 
       <!-- Copyright -->
-      <p class="text-slate-600 text-sm text-center">
+      <p class="text-slate-400 text-sm text-center">
         © 2026 Xiomics Systems. All rights reserved.
       </p>
 
       <!-- Footer links -->
-      <div class="flex items-center gap-6">
-        <a href="#services" class="text-slate-600 hover:text-[#00D4FF] text-sm transition-colors">Services</a>
-        <a href="#about" class="text-slate-600 hover:text-[#00D4FF] text-sm transition-colors">About</a>
-        <a href="#contact" class="text-slate-600 hover:text-[#00D4FF] text-sm transition-colors">Contact</a>
-        <a href="mailto:contact@xiomics.systems" class="text-slate-600 hover:text-[#00D4FF] text-sm transition-colors">contact@xiomics.systems</a>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="#services" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">Services</a>
+        <a href="#about" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">About</a>
+        <a href="#contact" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">Contact</a>
+        <a href="mailto:contact@xiomics.systems" class="text-slate-400 hover:text-[#00D4FF] text-sm transition-colors">contact@xiomics.systems</a>
       </div>
 
     </div>
@@ -785,21 +816,24 @@
   const lines = hamburger.querySelectorAll('.ham-line');
   let menuOpen = false;
 
-  hamburger.addEventListener('click', () => {
-    menuOpen = !menuOpen;
-    mobileMenu.classList.toggle('hidden', !menuOpen);
-    lines[0].style.transform = menuOpen ? 'translateY(8px) rotate(45deg)' : '';
-    lines[1].style.opacity  = menuOpen ? '0' : '1';
-    lines[2].style.transform = menuOpen ? 'translateY(-8px) rotate(-45deg)' : '';
-  });
+  function setMenu(open) {
+    menuOpen = open;
+    mobileMenu.classList.toggle('hidden', !open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    lines[0].style.transform = open ? 'translateY(8px) rotate(45deg)' : '';
+    lines[1].style.opacity  = open ? '0' : '1';
+    lines[2].style.transform = open ? 'translateY(-8px) rotate(-45deg)' : '';
+  }
 
-  // Close mobile menu on link click
+  hamburger.addEventListener('click', () => setMenu(!menuOpen));
+
+  // Close mobile menu on link click or Escape
   document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      menuOpen = false;
-      mobileMenu.classList.add('hidden');
-      lines.forEach(l => { l.style.transform = ''; l.style.opacity = '1'; });
-    });
+    link.addEventListener('click', () => setMenu(false));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuOpen) { setMenu(false); hamburger.focus(); }
   });
 
   /* ── Scroll reveal ── */
@@ -817,33 +851,7 @@
     revealObserver.observe(el);
   });
 
-  /* ── Contact form ── */
-  const form = document.getElementById('contact-form');
-  const submitBtn = document.getElementById('submit-btn');
-  const submitLabel = document.getElementById('submit-label');
-  const successMsg = document.getElementById('form-success');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    // Loading state
-    submitBtn.disabled = true;
-    submitLabel.textContent = 'Sending…';
-
-    // Simulate network (replace with real endpoint like Formspree / EmailJS)
-    await new Promise(r => setTimeout(r, 1500));
-
-    // Success state
-    form.querySelectorAll('input, textarea').forEach(el => el.value = '');
-    submitBtn.style.display = 'none';
-    successMsg.classList.remove('hidden');
-
-    setTimeout(() => {
-      submitBtn.style.display = '';
-      submitBtn.disabled = false;
-      submitLabel.textContent = 'Send Message & Book Audit →';
-      successMsg.classList.add('hidden');
-    }, 5000);
-  });
+  /* ── Contact form: see assets/js/contact-form.js ── */
 
   /* ── Smooth active nav highlight ── */
   const sections = document.querySelectorAll('section[id]');
@@ -863,6 +871,7 @@
 
   sections.forEach(s => sectionObserver.observe(s));
 </script>
+<script src="assets/js/contact-form.js" defer></script>
 
 </body>
 </html>

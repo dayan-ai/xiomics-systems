@@ -1,0 +1,30 @@
+# Cloudflare Worker configuration for the www.xiomics.systems contact form.
+# Non-secret settings only. Secrets are added with `wrangler secret put <NAME>` (see README.md)
+# and must never be written into this file.
+name = "xiomics-contact"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGINS = "https://www.xiomics.systems,https://xiomics.systems"
+MAIL_FROM = "contact@xiomics.systems"
+MAIL_TO = "contact@xiomics.systems"
+# Zoho US data centre (the domain's MX records point to mx.zoho.com).
+ZOHO_ACCOUNTS_URL = "https://accounts.zoho.com"
+ZOHO_MAIL_API_URL = "https://mail.zoho.com"
+# Safety cap on emails sent per Worker instance per UTC day (stops quota exhaustion by spam).
+MAX_DAILY_SENDS = "100"
+# Cloudflare Turnstile is REQUIRED by default: without the TURNSTILE_SECRET secret the endpoint
+# answers 503 and sends nothing. Never set TURNSTILE_REQUIRED = "false" in production.
+
+# Optional: Cloudflare's rate-limiting binding. Without it, the code applies a per-instance
+# in-memory limit of 5 requests per IP per 10 minutes. The binding only supports 10- or
+# 60-second periods, so this example means "5 per IP per minute, per Cloudflare location".
+# Enable it only after confirming the binding is available on the account's plan.
+# [[ratelimits]]
+# name = "RATE_LIMITER"
+# namespace_id = "1001"
+#   [ratelimits.simple]
+#   limit = 5
+#   period = 60

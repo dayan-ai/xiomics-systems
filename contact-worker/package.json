@@ -1,0 +1,9 @@
+{
+  "name": "xiomics-contact-worker",
+  "private": true,
+  "description": "Contact-form endpoint for www.xiomics.systems (Cloudflare Worker + Zoho Mail API). No runtime dependencies.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

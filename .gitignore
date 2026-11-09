@@ -1,0 +1,10 @@
+# Local secrets for the contact Worker. Never commit real credentials.
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+
+# Tooling output
+node_modules/
+.wrangler/

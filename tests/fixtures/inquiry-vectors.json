@@ -1,0 +1,35 @@
+{
+  "description": "Shared validation vectors. Both the browser validator (assets/js/contact-form.js) and the server validator (contact-worker/src/validation.js) must agree on every case. Strings of the form {\"repeat\": \"a\", \"times\": N} or {\"codepoint\": \"202E\", \"prefix\": \"x\", \"suffix\": \"y\"} are expanded by the tests (code points are written as hex so invisible characters stay reviewable). Only reserved example domains are used.",
+  "base": {
+    "name": "Ada Lovelace",
+    "email": "ada@example.com",
+    "business": "Analytical Engines Ltd",
+    "message": "We want to automate our invoice intake and CRM updates."
+  },
+  "cases": [
+    { "case": "valid inquiry", "override": {}, "ok": true, "errors": {} },
+    { "case": "valid multi-line message", "override": { "message": "Line one of the brief.\nLine two of the brief." }, "ok": true, "errors": {} },
+    { "case": "valid with surrounding whitespace", "override": { "name": "  Ada  ", "email": " ada@example.com " }, "ok": true, "errors": {} },
+    { "case": "missing name", "override": { "name": "   " }, "ok": false, "errors": { "name": "required" } },
+    { "case": "name with CRLF header injection", "override": { "name": "Ada\r\nBcc: attacker@example.test" }, "ok": false, "errors": { "name": "invalid_characters" } },
+    { "case": "name too long", "override": { "name": { "repeat": "a", "times": 101 } }, "ok": false, "errors": { "name": "too_long" } },
+    { "case": "missing email", "override": { "email": "" }, "ok": false, "errors": { "email": "required" } },
+    { "case": "invalid email (no domain)", "override": { "email": "ada@" }, "ok": false, "errors": { "email": "invalid_email" } },
+    { "case": "invalid email (no at sign)", "override": { "email": "ada.example.com" }, "ok": false, "errors": { "email": "invalid_email" } },
+    { "case": "invalid email (header injection)", "override": { "email": "ada@example.com\r\nBcc: attacker@example.test" }, "ok": false, "errors": { "email": "invalid_email" } },
+    { "case": "invalid email (double dot)", "override": { "email": "ada..lovelace@example.com" }, "ok": false, "errors": { "email": "invalid_email" } },
+    { "case": "email too long", "override": { "email": { "repeat": "a", "times": 250, "suffix": "@example.com" } }, "ok": false, "errors": { "email": "too_long" } },
+    { "case": "missing business", "override": { "business": "" }, "ok": false, "errors": { "business": "required" } },
+    { "case": "business too long", "override": { "business": { "repeat": "b", "times": 121 } }, "ok": false, "errors": { "business": "too_long" } },
+    { "case": "business with control character", "override": { "business": "Acme\u0000Corp" }, "ok": false, "errors": { "business": "invalid_characters" } },
+    { "case": "empty message", "override": { "message": "   \n  " }, "ok": false, "errors": { "message": "required" } },
+    { "case": "message too short", "override": { "message": "Hi there" }, "ok": false, "errors": { "message": "too_short" } },
+    { "case": "message too long", "override": { "message": { "repeat": "m", "times": 5001 } }, "ok": false, "errors": { "message": "too_long" } },
+    { "case": "message with control character", "override": { "message": "Please automate this\u0007 for us today." }, "ok": false, "errors": { "message": "invalid_characters" } },
+    { "case": "everything missing", "override": { "name": "", "email": "", "business": "", "message": "" }, "ok": false, "errors": { "name": "required", "email": "required", "business": "required", "message": "required" } },
+    { "case": "name with right-to-left override (display spoofing)", "override": { "name": { "codepoint": "202E", "prefix": "Ada", "suffix": "Lovelace" } }, "ok": false, "errors": { "name": "invalid_characters" } },
+    { "case": "business with zero-width space", "override": { "business": { "codepoint": "200B", "prefix": "Acme", "suffix": "Corp" } }, "ok": false, "errors": { "business": "invalid_characters" } },
+    { "case": "message with bidi isolate", "override": { "message": { "codepoint": "2066", "prefix": "Please automate our ", "suffix": "invoice intake." } }, "ok": false, "errors": { "message": "invalid_characters" } },
+    { "case": "Urdu message with zero-width non-joiner is allowed", "override": { "message": { "codepoint": "200C", "prefix": "Please help with our Urdu invoices ", "suffix": " today." } }, "ok": true, "errors": {} }
+  ]
+}
